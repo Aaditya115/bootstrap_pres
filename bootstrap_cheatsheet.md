@@ -108,8 +108,7 @@ Why they matter:
 
 ## 8. When Bootstrap is a good choice
 
-- student projects
-- class assignments
+- small projects
 - dashboards
 - prototypes and MVPs
 - teams that want consistent UI patterns

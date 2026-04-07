@@ -1,0 +1,124 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> /Contents 7 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+7 0 obj
+<< /Length 3966 >>
+stream
+BT
+/F2 22 Tf
+1 0 0 1 36 744 Tm (Bootstrap Cheat Sheet) Tj
+/F1 10 Tf
+1 0 0 1 36 728 Tm (One-page reference for grid, components, utilities, responsive design, and key use cases.) Tj
+/F2 11 Tf
+1 0 0 1 36 696 Tm (What Bootstrap Is) Tj
+/F1 9 Tf
+1 0 0 1 36 682 Tm (Bootstrap is a front-end framework for building responsive interfaces faster.) Tj
+1 0 0 1 36 671 Tm (Core idea: grid + components + utilities + responsive design.) Tj
+/F2 11 Tf
+1 0 0 1 36 650 Tm (History and Evolution) Tj
+/F1 9 Tf
+1 0 0 1 36 636 Tm (Created by Mark Otto and Jacob Thornton at Twitter.) Tj
+1 0 0 1 36 625 Tm (2011: Bootstrap 1 released as open source.) Tj
+1 0 0 1 36 614 Tm (Bootstrap 2: expanded component library.) Tj
+1 0 0 1 36 603 Tm (Bootstrap 3: mobile-first design became core.) Tj
+1 0 0 1 36 592 Tm (Bootstrap 4: moved to flexbox layout.) Tj
+1 0 0 1 36 581 Tm (Bootstrap 5: removed the jQuery dependency.) Tj
+/F2 11 Tf
+1 0 0 1 36 560 Tm (Grid Basics) Tj
+/F3 8 Tf
+1 0 0 1 36 546 Tm (<div class="container">) Tj
+1 0 0 1 36 536 Tm (  <div class="row">) Tj
+1 0 0 1 36 526 Tm (    <div class="col-12 col-md-8">Main</div>) Tj
+1 0 0 1 36 516 Tm (    <div class="col-12 col-md-4">Sidebar</div>) Tj
+1 0 0 1 36 506 Tm (  </div>) Tj
+1 0 0 1 36 496 Tm (</div>) Tj
+1 0 0 1 36 486 Tm (container centers content; row creates a grid row; col-* controls width.) Tj
+1 0 0 1 36 476 Tm (col-12 = full width on small screens; col-md-8 starts at the md breakpoint.) Tj
+/F2 11 Tf
+1 0 0 1 36 456 Tm (Breakpoints) Tj
+/F1 9 Tf
+1 0 0 1 36 442 Tm (sm 576px+   md 768px+   lg 992px+) Tj
+1 0 0 1 36 431 Tm (xl 1200px+  xxl 1400px+) Tj
+1 0 0 1 36 420 Tm (Bootstrap is mobile-first: start small, then add larger-screen classes.) Tj
+0.85 0.9 0.96 RG 1 w
+306.0 50 m 306.0 704 l S
+/F2 11 Tf
+1 0 0 1 315.0 696 Tm (Components) Tj
+/F1 9 Tf
+1 0 0 1 315.0 682 Tm (Buttons: btn btn-primary) Tj
+1 0 0 1 315.0 671 Tm (Cards: card) Tj
+1 0 0 1 315.0 660 Tm (Navbar: navbar navbar-expand-lg) Tj
+1 0 0 1 315.0 649 Tm (Forms: form-control) Tj
+1 0 0 1 315.0 638 Tm (Alerts: alert alert-warning) Tj
+1 0 0 1 315.0 627 Tm (JS UI: modal, dropdown, collapse, offcanvas) Tj
+/F2 11 Tf
+1 0 0 1 315.0 606 Tm (Utility Classes) Tj
+/F1 9 Tf
+1 0 0 1 315.0 592 Tm (Spacing: m-2  mt-4  p-3  px-4) Tj
+1 0 0 1 315.0 581 Tm (Text: text-center  fw-bold) Tj
+1 0 0 1 315.0 570 Tm (Color: bg-primary  text-white) Tj
+1 0 0 1 315.0 559 Tm (Flex: d-flex  justify-content-between) Tj
+1 0 0 1 315.0 548 Tm (Display: d-none  d-md-block) Tj
+1 0 0 1 315.0 537 Tm (Syntax example: btn adds styling, btn-primary changes color,) Tj
+1 0 0 1 315.0 526 Tm (m-1 adds margin with no extra CSS.) Tj
+/F2 11 Tf
+1 0 0 1 315.0 505 Tm (Applications) Tj
+/F1 9 Tf
+1 0 0 1 315.0 491 Tm (Social feeds: cards, avatars, navbars, buttons.) Tj
+1 0 0 1 315.0 480 Tm (E-commerce pages: cards, badges, forms, responsive product grids.) Tj
+1 0 0 1 315.0 469 Tm (Dashboards: alerts, forms, navbars, cards, repeated page patterns.) Tj
+/F2 11 Tf
+1 0 0 1 315.0 448 Tm (When Bootstrap Fits) Tj
+/F1 9 Tf
+1 0 0 1 315.0 434 Tm (Good for prototypes, MVPs, dashboards, and internal tools.) Tj
+1 0 0 1 315.0 423 Tm (Strong when speed, consistency, and responsive behavior matter.) Tj
+1 0 0 1 315.0 412 Tm (Less ideal for highly custom brand-heavy design systems.) Tj
+/F2 11 Tf
+1 0 0 1 315.0 391 Tm (Bootstrap vs CSS vs JavaScript) Tj
+/F1 9 Tf
+1 0 0 1 315.0 377 Tm (Bootstrap: layout, components, utilities, responsiveness.) Tj
+1 0 0 1 315.0 366 Tm (Plain CSS: full custom styling control.) Tj
+1 0 0 1 315.0 355 Tm (JavaScript: behavior, logic, and interactivity.) Tj
+/F2 11 Tf
+1 0 0 1 315.0 334 Tm (Getting Started) Tj
+/F3 8 Tf
+1 0 0 1 315.0 320 Tm (<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">) Tj
+1 0 0 1 315.0 310 Tm (Add Bootstrap CSS, build with classes in normal HTML,) Tj
+1 0 0 1 315.0 300 Tm (then add custom CSS or Bootstrap JS when needed.) Tj
+/F1 8 Tf
+1 0 0 1 36 26 Tm (Generated handout PDF for the Bootstrap presentation) Tj
+ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000267 00000 n 
+0000000337 00000 n 
+0000000412 00000 n 
+0000000480 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+4498
+%%EOF

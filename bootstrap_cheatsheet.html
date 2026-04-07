@@ -42,6 +42,13 @@
       padding: 0.32in;
     }
 
+    .screen-stage {
+      width: 100%;
+      min-height: calc(100vh - 0.64in);
+      display: grid;
+      place-items: center;
+    }
+
     .sheet {
       width: 100%;
       max-width: 8.5in;
@@ -335,6 +342,11 @@
         background: #f5f9ff;
       }
 
+      .screen-stage {
+        min-height: auto;
+        display: block;
+      }
+
       .sheet {
         border-radius: 16px;
       }
@@ -359,6 +371,11 @@
         padding: 0;
       }
 
+      .screen-stage {
+        display: block;
+        min-height: auto;
+      }
+
       .sheet {
         border: 0;
         border-radius: 0;
@@ -374,9 +391,10 @@
   </style>
 </head>
 <body>
-  <main class="sheet">
-    <section class="hero">
-      <div class="eyebrow">Class Handout</div>
+  <div class="screen-stage" id="screenStage">
+    <main class="sheet" id="sheet">
+      <section class="hero">
+      <div class="eyebrow">Handout</div>
       <h1>Bootstrap One-Page Cheat Sheet</h1>
       <p class="subtitle">
         A fast reference for what Bootstrap is, how its grid works, which classes matter most,
@@ -393,7 +411,7 @@
         </div>
         <div class="summary-box">
           <strong>Best for</strong>
-          Student projects, prototypes, dashboards, MVPs.
+          Prototypes, dashboards, MVPs, internal tools.
         </div>
         <div class="summary-box">
           <strong>Remember</strong>
@@ -533,7 +551,7 @@
           <div class="do-dont">
             <div class="do">
               <strong>Use Bootstrap for:</strong><br>
-              student projects, dashboards, prototypes, MVPs, and teams that need a consistent UI quickly.
+              prototypes, dashboards, MVPs, and teams that need a consistent UI quickly.
             </div>
             <div class="dont">
               <strong>Less ideal for:</strong><br>
@@ -557,9 +575,41 @@
     </section>
 
     <footer class="footer">
-      <span>Printable one-page Bootstrap handout for class presentation</span>
+      <span>Printable one-page Bootstrap handout</span>
       <span>Tip: open in browser, then print with “Background graphics” enabled for best result</span>
     </footer>
-  </main>
+    </main>
+  </div>
+  <script>
+    (function () {
+      const stage = document.getElementById("screenStage");
+      const sheet = document.getElementById("sheet");
+      if (!stage || !sheet) return;
+
+      function fitSheetToViewport() {
+        if (window.matchMedia("(max-width: 980px)").matches) {
+          stage.style.height = "";
+          sheet.style.transform = "";
+          sheet.style.transformOrigin = "";
+          return;
+        }
+
+        sheet.style.transform = "none";
+        const stageWidth = Math.max(window.innerWidth - 24, 320);
+        const stageHeight = Math.max(window.innerHeight - 24, 320);
+        const sheetWidth = sheet.offsetWidth;
+        const sheetHeight = sheet.offsetHeight;
+        const scale = Math.min(stageWidth / sheetWidth, stageHeight / sheetHeight, 1);
+
+        stage.style.height = `${Math.round(sheetHeight * scale)}px`;
+        sheet.style.transform = `scale(${scale})`;
+        sheet.style.transformOrigin = "top center";
+      }
+
+      window.addEventListener("resize", fitSheetToViewport);
+      window.addEventListener("load", fitSheetToViewport);
+      fitSheetToViewport();
+    }());
+  </script>
 </body>
 </html>

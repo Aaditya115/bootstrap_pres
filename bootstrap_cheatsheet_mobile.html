@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap Mobile Cheat Sheet</title>
+  <style>
+    :root {
+      --blue: #0d6efd;
+      --blue-deep: #0a58ca;
+      --ink: #18324b;
+      --muted: #5b7088;
+      --line: #d9e6f5;
+      --panel: #f7fbff;
+      --success: #198754;
+      --warning: #ffc107;
+      --dark: #1f2937;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --sans: "Segoe UI", "Aptos", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--sans);
+      background:
+        radial-gradient(circle at top right, rgba(13, 110, 253, 0.12), transparent 26%),
+        linear-gradient(180deg, #f7fbff 0%, #eef5ff 100%);
+      color: var(--ink);
+    }
+
+    body {
+      padding: 16px;
+    }
+
+    .sheet {
+      max-width: 760px;
+      margin: 0 auto;
+      display: grid;
+      gap: 14px;
+    }
+
+    .hero,
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 16px 36px rgba(24, 50, 75, 0.08);
+    }
+
+    .hero {
+      padding: 18px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(13, 110, 253, 0.1);
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      margin-top: 10px;
+      font-size: clamp(2rem, 7vw, 2.7rem);
+      line-height: 1.02;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .card {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .card h2 {
+      font-size: 1.04rem;
+      color: var(--blue-deep);
+      line-height: 1.2;
+    }
+
+    .card p,
+    .card li {
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mini-card {
+      padding: 10px 11px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--blue-deep);
+    }
+
+    .code {
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--dark);
+      color: #f8fafc;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .compare {
+      display: grid;
+      gap: 8px;
+    }
+
+    .compare .mini-card.bootstrap strong {
+      color: var(--blue-deep);
+    }
+
+    .compare .mini-card.css strong {
+      color: var(--success);
+    }
+
+    .compare .mini-card.js strong {
+      color: #8a6d00;
+    }
+
+    .callout {
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(13, 110, 253, 0.08);
+      border: 1px solid rgba(13, 110, 253, 0.12);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .actions {
+      display: grid;
+      gap: 10px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--blue), #3d8bfd);
+      color: #fff;
+    }
+
+    .button.secondary {
+      background: rgba(13, 110, 253, 0.08);
+      color: var(--blue-deep);
+      border: 1px solid rgba(13, 110, 253, 0.12);
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
+      padding: 8px 6px 0;
+    }
+
+    @media (max-width: 560px) {
+      .grid.two {
+        grid-template-columns: 1fr;
+      }
+
+      body {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <section class="hero">
+      <div class="eyebrow">Mobile Handout</div>
+      <h1>Bootstrap Cheat Sheet</h1>
+      <p class="subtitle">A phone-friendly version of the Bootstrap quick reference.</p>
+      <div class="pill-row">
+        <span class="pill">Grid</span>
+        <span class="pill">Components</span>
+        <span class="pill">Utilities</span>
+        <span class="pill">Responsive</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>What Bootstrap Is</h2>
+      <p>Bootstrap is a front-end framework that helps build responsive interfaces faster with a grid system, prebuilt components, and utility classes.</p>
+      <div class="callout"><strong>Remember:</strong> Bootstrap = grid + components + utilities + responsive design.</div>
+    </section>
+
+    <section class="card">
+      <h2>Grid Basics</h2>
+      <div class="code">&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-12 col-md-8"&gt;Main&lt;/div&gt;
+    &lt;div class="col-12 col-md-4"&gt;Sidebar&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+      <ul>
+        <li><code>container</code> wraps and centers content</li>
+        <li><code>row</code> creates a grid row</li>
+        <li><code>col-*</code> controls column width</li>
+        <li><code>col-md-8</code> starts at the medium breakpoint</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Breakpoints</h2>
+      <div class="grid two">
+        <div class="mini-card"><strong>sm</strong>576px+</div>
+        <div class="mini-card"><strong>md</strong>768px+</div>
+        <div class="mini-card"><strong>lg</strong>992px+</div>
+        <div class="mini-card"><strong>xl</strong>1200px+</div>
+        <div class="mini-card"><strong>xxl</strong>1400px+</div>
+        <div class="mini-card"><strong>Rule</strong>Mobile-first by default</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Common Components</h2>
+      <div class="grid two">
+        <div class="mini-card"><strong>Buttons</strong><code>btn btn-primary</code></div>
+        <div class="mini-card"><strong>Cards</strong><code>card</code></div>
+        <div class="mini-card"><strong>Navbar</strong><code>navbar</code></div>
+        <div class="mini-card"><strong>Forms</strong><code>form-control</code></div>
+        <div class="mini-card"><strong>Alerts</strong><code>alert alert-warning</code></div>
+        <div class="mini-card"><strong>JS UI</strong>modal, dropdown, collapse</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Utility Classes</h2>
+      <div class="grid two">
+        <div class="mini-card"><strong>Spacing</strong><code>m-2 p-3 mt-4</code></div>
+        <div class="mini-card"><strong>Text</strong><code>text-center fw-bold</code></div>
+        <div class="mini-card"><strong>Color</strong><code>bg-primary text-white</code></div>
+        <div class="mini-card"><strong>Flex</strong><code>d-flex justify-content-between</code></div>
+        <div class="mini-card"><strong>Display</strong><code>d-none d-md-block</code></div>
+        <div class="mini-card"><strong>Extras</strong><code>rounded shadow-sm w-100</code></div>
+      </div>
+      <div class="callout"><strong>Syntax example:</strong> <code>btn</code> adds button styling, <code>btn-primary</code> changes the color, and <code>m-1</code> adds margin.</div>
+    </section>
+
+    <section class="card">
+      <h2>Bootstrap vs CSS vs JavaScript</h2>
+      <div class="compare">
+        <div class="mini-card bootstrap"><strong>Bootstrap</strong>Layout, components, utilities, responsiveness.</div>
+        <div class="mini-card css"><strong>Plain CSS</strong>Full custom styling and design control.</div>
+        <div class="mini-card js"><strong>JavaScript</strong>Behavior, logic, and interactivity.</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Good Fits</h2>
+      <ul>
+        <li>Prototypes and MVPs</li>
+        <li>Dashboards and internal tools</li>
+        <li>Interfaces that reuse cards, navbars, forms, and alerts</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Less Ideal Fits</h2>
+      <ul>
+        <li>Highly custom brand-heavy sites</li>
+        <li>Projects built around a unique design system</li>
+        <li>Teams that prefer a utility-first workflow like Tailwind</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Open the Printable Version</h2>
+      <div class="actions">
+        <a class="button primary" href="./bootstrap_cheatsheet.html">Printable Cheat Sheet</a>
+        <a class="button secondary" href="./bootstrap_deck.html">Back to Slides</a>
+      </div>
+    </section>
+
+    <div class="footer">Mobile-friendly reference for the Bootstrap presentation.</div>
+  </main>
+</body>
+</html>

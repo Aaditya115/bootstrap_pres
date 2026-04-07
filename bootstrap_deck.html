@@ -1693,6 +1693,98 @@
       word-break: break-all;
     }
 
+    .slide-frame[data-title="Handout / Cheat Sheet"] .slide-head {
+      padding-bottom: 10px;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .slide-body {
+      gap: 12px;
+      padding-top: 6px;
+      padding-bottom: 18px;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .cheat-sheet-wrap {
+      grid-template-columns: minmax(0, 1.48fr) 232px;
+      gap: 14px;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .teach-switches {
+      gap: 8px;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .demo-toggle {
+      padding: 9px 10px;
+      font-size: 0.78rem;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .teach-stage {
+      min-height: 232px;
+      padding: 14px;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .teach-pane {
+      gap: 10px;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .memory-card {
+      padding: 12px;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .quick-ref-grid {
+      gap: 10px;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .feature-strip,
+    .slide-frame[data-title="Handout / Cheat Sheet"] .class-badges {
+      gap: 6px;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .feature-strip span,
+    .slide-frame[data-title="Handout / Cheat Sheet"] .class-badge {
+      padding: 6px 8px;
+      font-size: 0.74rem;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .teach-pane p {
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .qr-panel {
+      padding: 14px;
+      gap: 10px;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .qr-code-frame {
+      width: 170px;
+      height: 170px;
+      padding: 10px;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .qr-panel h3 {
+      font-size: 1.02rem;
+      line-height: 1.2;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .qr-panel p {
+      font-size: 0.85rem;
+      line-height: 1.35;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .qr-link {
+      padding: 8px 10px;
+      font-size: 0.68rem;
+      line-height: 1.35;
+    }
+
+    .slide-frame[data-title="Handout / Cheat Sheet"] .callout.primary {
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      line-height: 1.38;
+    }
+
     .alert-demo {
       padding: 12px 14px;
       border-radius: 16px;
@@ -2180,8 +2272,8 @@
                     </div>
                     <div class="accent-grid">
                       <div class="accent-box">
-                        <strong>Audience</strong>
-                        Beginners to intermediate students with some HTML, CSS, and basic JavaScript.
+                        <strong>Background</strong>
+                        Best suited for people with basic HTML, CSS, and JavaScript knowledge.
                       </div>
                       <div class="accent-box">
                         <strong>Goal</strong>
@@ -2296,6 +2388,7 @@
                     <button class="demo-toggle active" type="button" data-switch-target="what-layout">Layout</button>
                     <button class="demo-toggle" type="button" data-switch-target="what-components">Components</button>
                     <button class="demo-toggle" type="button" data-switch-target="what-utilities">Utilities</button>
+                    <button class="demo-toggle" type="button" data-switch-target="what-history">History</button>
                     <button class="demo-toggle" type="button" data-switch-target="what-js">JS extras</button>
                   </div>
                   <div class="teach-stage">
@@ -2318,7 +2411,7 @@
                       <span class="label-pill">UI building blocks</span>
                       <h3>Bootstrap ships with ready-made interface pieces.</h3>
                       <div class="fake-navbar">
-                        <span class="fake-brand">CampusHub</span>
+                        <span class="fake-brand">ProjectSite</span>
                         <div class="fake-links"><span>Home</span><span>Events</span><span>Account</span></div>
                       </div>
                       <div class="button-row">
@@ -2342,6 +2435,16 @@
                       </div>
                       <p>Common changes like spacing, alignment, and emphasis are already built in.</p>
                     </div>
+                    <div class="teach-pane" data-switch-pane="what-history">
+                      <span class="label-pill">History and evolution</span>
+                      <h3>Bootstrap has changed with the web platform.</h3>
+                      <div class="memory-grid">
+                        <div class="memory-card"><strong>2011</strong>Created at Twitter and released as open source.</div>
+                        <div class="memory-card"><strong>Bootstrap 3</strong>Made mobile-first design a core idea.</div>
+                        <div class="memory-card"><strong>Bootstrap 4</strong>Shifted to flexbox-based layout.</div>
+                        <div class="memory-card"><strong>Bootstrap 5</strong>Removed the jQuery dependency.</div>
+                      </div>
+                    </div>
                     <div class="teach-pane" data-switch-pane="what-js">
                       <span class="label-pill">Optional interactivity</span>
                       <h3>Bootstrap can also power common interface behavior.</h3>
@@ -2358,10 +2461,53 @@
                     </div>
                   </div>
                 </section>
-                <div class="callout primary">You still write HTML. You often write less CSS. You can still add custom CSS whenever the project needs it.</div>
               </div>
               <footer class="slide-foot">
                 <div class="foot-tag"><span class="dot"></span> Framework for interface structure and styling</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Bootstrap History" data-subtitle="Where Bootstrap came from and how it evolved." data-time="0.75 min" data-note="Keep this quick and visual. Show the names, the 2011 release, and the version milestones that matter most.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 04 · History</p>
+                  <h2>Bootstrap history and evolution</h2>
+                  <p class="subtitle">Bootstrap began at Twitter and evolved alongside major front-end shifts like mobile-first design and flexbox.</p>
+                </div>
+                <div class="slide-badge">2011 → today</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>Bootstrap stayed relevant by adapting to how front-end development changed over time.</span>
+                </section>
+                <div class="two-col">
+                  <section class="panel">
+                    <span class="label-pill">Origins</span>
+                    <div class="memory-grid">
+                      <div class="memory-card"><strong>Created by</strong>Mark Otto and Jacob Thornton</div>
+                      <div class="memory-card"><strong>Started at</strong>Twitter, first as an internal tool</div>
+                      <div class="memory-card"><strong>Released</strong>Open source in 2011</div>
+                      <div class="memory-card"><strong>Why it mattered</strong>A shared UI system made front-end work faster and more consistent</div>
+                    </div>
+                  </section>
+                  <section class="panel">
+                    <span class="label-pill">Version milestones</span>
+                    <div class="memory-grid">
+                      <div class="memory-card"><strong>Bootstrap 1</strong>First release</div>
+                      <div class="memory-card"><strong>Bootstrap 2</strong>Expanded the component library</div>
+                      <div class="memory-card"><strong>Bootstrap 3</strong>Made mobile-first design a core idea</div>
+                      <div class="memory-card"><strong>Bootstrap 4</strong>Shifted to flexbox-based layout</div>
+                      <div class="memory-card"><strong>Bootstrap 5</strong>Removed the jQuery dependency</div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Open source since 2011</div>
+                <div class="foot-tag">Mobile-first in v3, flexbox in v4, no jQuery in v5</div>
               </footer>
             </section>
           </article>
@@ -2397,7 +2543,7 @@
                         <div class="tiny-stat"><strong>Step 2</strong>Get spacing and layout quickly</div>
                         <div class="tiny-stat"><strong>Step 3</strong>Spend time on content and logic</div>
                       </div>
-                      <p>For student teams, faster setup often means more time to debug, improve, and actually finish the project.</p>
+                      <p>Faster setup means more time to refine the product instead of rebuilding common UI patterns.</p>
                     </div>
                     <div class="teach-pane" data-switch-pane="why-responsive">
                       <span class="label-pill">Built for multiple screens</span>
@@ -2446,7 +2592,7 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 04 · Comparison</p>
+                  <p class="eyebrow">Slide 05 · Comparison</p>
                   <h2>Bootstrap vs plain CSS and JavaScript</h2>
                   <p class="subtitle">Bootstrap is mainly a CSS/UI framework. JavaScript is a programming language. They solve different problems.</p>
                 </div>
@@ -2513,7 +2659,7 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 05 · Landscape</p>
+                  <p class="eyebrow">Slide 06 · Landscape</p>
                   <h2>What is Bootstrap comparable to?</h2>
                   <p class="subtitle">These tools all help with front-end styling, but they work in different ways and make different tradeoffs.</p>
                 </div>
@@ -2575,7 +2721,7 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 06 · Core Feature</p>
+                  <p class="eyebrow">Slide 07 · Core Feature</p>
                   <h2>Grid system</h2>
                   <p class="subtitle">Bootstrap uses containers, rows, and columns to build layouts that adapt across screen sizes.</p>
                 </div>
@@ -2630,7 +2776,7 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 07 · Core Feature</p>
+                  <p class="eyebrow">Slide 08 · Core Feature</p>
                   <h2>Prebuilt components</h2>
                   <p class="subtitle">Bootstrap gives you common UI building blocks that already look organized and usable.</p>
                 </div>
@@ -2667,14 +2813,14 @@
                         <div class="skeleton mid"></div>
                         <div class="button-row"><span class="demo-btn light">Read more</span></div>
                       </div>
-                      <p>Cards are common for products, events, news, profiles, and dashboard widgets.</p>
+                      <p>Cards are common for product listings, profiles, posts, events, and dashboard widgets.</p>
                     </div>
                     <div class="teach-pane" data-switch-pane="component-navbar">
                       <span class="label-pill">Navigation</span>
                       <h3>Navbars give your page a clean top-level structure.</h3>
                       <div class="fake-navbar">
-                        <span class="fake-brand">Class Portal</span>
-                        <div class="fake-links"><span>Home</span><span>Schedule</span><span>Resources</span></div>
+                        <span class="fake-brand">StoreFront</span>
+                        <div class="fake-links"><span>Home</span><span>Products</span><span>Account</span></div>
                       </div>
                       <p>They help users understand where they are and what sections exist in the site.</p>
                     </div>
@@ -2690,10 +2836,49 @@
                     </div>
                   </div>
                 </section>
-                <section class="callout primary">Also worth mentioning aloud: alerts help with feedback, and modals help with focused tasks.</section>
               </div>
               <footer class="slide-foot">
                 <div class="foot-tag"><span class="dot"></span> Buttons, cards, navbars, forms, alerts, modals</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Bootstrap Applications" data-subtitle="Where Bootstrap is commonly used in real interfaces." data-time="0.75 min" data-note="Show practical examples here. Connect each example to the Bootstrap pieces that make it easier to build.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 09 · Applications</p>
+                  <h2>Applications of Bootstrap</h2>
+                  <p class="subtitle">Bootstrap is especially useful in interfaces that reuse the same patterns across many screens.</p>
+                </div>
+                <div class="slide-badge">Common use cases</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>Bootstrap is a good fit when a product relies on repeated UI patterns like cards, navigation, forms, badges, and responsive grids.</span>
+                </section>
+                <div class="three-col">
+                  <section class="panel">
+                    <span class="label-pill">Social feed</span>
+                    <div class="feature-strip"><span>cards</span><span>navbar</span><span>buttons</span></div>
+                    <p>Useful for posts, profiles, avatars, and feed-style layouts where repeating content blocks matter.</p>
+                  </section>
+                  <section class="panel">
+                    <span class="label-pill">E-commerce</span>
+                    <div class="feature-strip"><span>cards</span><span>badges</span><span>forms</span><span>grid</span></div>
+                    <p>Helpful for product cards, sale badges, checkout forms, and responsive product listings.</p>
+                  </section>
+                  <section class="panel">
+                    <span class="label-pill">Dashboards</span>
+                    <div class="feature-strip"><span>alerts</span><span>forms</span><span>navbars</span><span>cards</span></div>
+                    <p>Great for admin panels and internal tools that need consistent structure across many screens.</p>
+                  </section>
+                </div>
+                <section class="callout primary">Examples from the original research slides: social-style apps benefit from cards and navbars, while e-commerce pages benefit from badges, forms, and responsive product grids.</section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Social feeds, e-commerce pages, dashboards</div>
               </footer>
             </section>
           </article>
@@ -2702,7 +2887,7 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 08 · Core Feature</p>
+                  <p class="eyebrow">Slide 10 · Core Feature</p>
                   <h2>Utility classes</h2>
                   <p class="subtitle">Small classes let you make quick styling changes without writing custom CSS every time.</p>
                 </div>
@@ -2723,6 +2908,7 @@
                       <li>Text: <code>text-center</code>, <code>fw-bold</code></li>
                       <li>Display: <code>d-none</code>, <code>d-md-block</code></li>
                     </ul>
+                    <div class="callout primary"><strong>Syntax example:</strong> <code>btn</code> gives button styling, <code>btn-primary</code> changes the color, and <code>m-1</code> adds margin with no extra CSS.</div>
                   </section>
                   <section class="panel">
                     <h3>Interactive utility playground</h3>
@@ -2755,7 +2941,7 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 09 · Core Feature</p>
+                  <p class="eyebrow">Slide 11 · Core Feature</p>
                   <h2>Responsive design</h2>
                   <p class="subtitle">Bootstrap is mobile-first. You start with the small-screen layout and add larger-screen behavior using breakpoint classes.</p>
                 </div>
@@ -2776,7 +2962,7 @@
                       <li><code>xl</code> = 1200px and up</li>
                       <li><code>xxl</code> = 1400px and up</li>
                     </ul>
-                    <div class="callout primary">Teach this slide with one sentence: start with the small-screen layout first, then add wider-screen rules when you need them.</div>
+                    <div class="callout primary">Bootstrap has been mobile-first since version 3, which is one reason it became so widely adopted for responsive web design.</div>
                   </section>
                   <section class="panel">
                     <h3>Interactive responsive preview</h3>
@@ -2923,7 +3109,7 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 10 · Demo</p>
+                  <p class="eyebrow">Slide 12 · Demo</p>
                   <h2>Before / after walkthrough</h2>
                   <p class="subtitle">The HTML content barely changes, but the page becomes clearer, more structured, and easier to use.</p>
                 </div>
@@ -2992,7 +3178,7 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 11 · Interactive</p>
+                  <p class="eyebrow">Slide 13 · Interactive</p>
                   <h2>Your turn</h2>
                   <p class="subtitle">Predict what this code does before the answer appears. Bootstrap becomes easier when you learn to read the class names.</p>
                 </div>
@@ -3001,7 +3187,7 @@
               <div class="slide-body">
                 <section class="takeaway-banner">
                   <strong>Main takeaway</strong>
-                  <span>If students can correctly read what the class names will do, they already understand Bootstrap much better.</span>
+                  <span>If you can correctly read what the class names will do, you already understand Bootstrap much better.</span>
                 </section>
                 <div class="two-col">
                   <section class="code-card">
@@ -3014,14 +3200,14 @@
 &lt;/div&gt;</pre>
                   </section>
                   <section class="panel">
-                    <h3>Interactive class prediction</h3>
+                    <h3>Interactive prediction</h3>
                     <div class="quiz-options" id="quizOptions">
                       <button class="quiz-option" type="button" data-result="wrong">A and B stay side-by-side on every screen size.</button>
                       <button class="quiz-option" type="button" data-result="correct">A and B stack on phones, then become two equal columns at the `md` breakpoint.</button>
                       <button class="quiz-option" type="button" data-result="wrong">A takes two-thirds width and B takes one-third width on medium screens.</button>
                     </div>
                     <div class="quiz-feedback" id="quizFeedback">Choose the answer you think matches the code. Then explain why the `col-12` and `col-md-6` parts both matter.</div>
-                    <div class="callout success"><strong>Bonus prompt:</strong> Ask the class what <code>btn btn-danger</code> and <code>mt-4</code> probably mean before advancing.</div>
+                    <div class="callout success"><strong>Bonus prompt:</strong> What do <code>btn btn-danger</code> and <code>mt-4</code> probably mean?</div>
                   </section>
                 </div>
               </div>
@@ -3035,7 +3221,7 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 12 · Fit</p>
+                  <p class="eyebrow">Slide 14 · Fit</p>
                   <h2>When Bootstrap is a good choice</h2>
                   <p class="subtitle">Bootstrap works especially well when speed, consistency, and dependable responsiveness matter.</p>
                 </div>
@@ -3048,16 +3234,17 @@
                 </section>
                 <section class="teach-layout thumbs" data-switcher>
                   <div class="teach-switches">
-                    <button class="demo-toggle active" type="button" data-switch-target="fit-student">Student project</button>
+                    <button class="demo-toggle active" type="button" data-switch-target="fit-starter">Starter project</button>
                     <button class="demo-toggle" type="button" data-switch-target="fit-dashboard">Dashboard</button>
+                    <button class="demo-toggle" type="button" data-switch-target="fit-social">Social feed</button>
                     <button class="demo-toggle" type="button" data-switch-target="fit-mvp">MVP / prototype</button>
                   </div>
                   <div class="teach-stage">
-                    <div class="teach-pane active" data-switch-pane="fit-student">
+                    <div class="teach-pane active" data-switch-pane="fit-starter">
                       <span class="label-pill">Strong fit</span>
                       <div class="fit-score">92 / 100 fit</div>
-                      <h3>Student project</h3>
-                      <p class="fit-note">Bootstrap is great when your team wants a polished result fast and does not have weeks to build custom styles.</p>
+                      <h3>Starter project</h3>
+                      <p class="fit-note">Bootstrap is great when you want a polished result quickly and do not want to build every style from scratch.</p>
                       <div class="feature-strip"><span>fast setup</span><span>responsive</span><span>good docs</span></div>
                     </div>
                     <div class="teach-pane" data-switch-pane="fit-dashboard">
@@ -3066,6 +3253,13 @@
                       <h3>Admin dashboard</h3>
                       <p class="fit-note">Dashboards use forms, cards, alerts, and navigation repeatedly, which is exactly where Bootstrap helps most.</p>
                       <div class="feature-strip"><span>cards</span><span>forms</span><span>alerts</span><span>navbars</span></div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="fit-social">
+                      <span class="label-pill">Strong fit</span>
+                      <div class="fit-score">90 / 100 fit</div>
+                      <h3>Social-style interface</h3>
+                      <p class="fit-note">Cards, navbars, buttons, spacing utilities, and responsive layout make Bootstrap useful for feed-style pages and profile screens.</p>
+                      <div class="feature-strip"><span>cards</span><span>navbar</span><span>buttons</span><span>spacing</span></div>
                     </div>
                     <div class="teach-pane" data-switch-pane="fit-mvp">
                       <span class="label-pill">Strong fit</span>
@@ -3079,7 +3273,7 @@
                 <section class="callout success">Good fit when speed, consistency, and dependable responsiveness matter more than building a fully custom design system.</section>
               </div>
               <footer class="slide-foot">
-                <div class="foot-tag"><span class="dot"></span> Prototypes, dashboards, student and team work</div>
+                <div class="foot-tag"><span class="dot"></span> Prototypes, dashboards, and internal tools</div>
               </footer>
             </section>
           </article>
@@ -3088,7 +3282,7 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 13 · Tradeoffs</p>
+                  <p class="eyebrow">Slide 15 · Tradeoffs</p>
                   <h2>When Bootstrap may not be the best choice</h2>
                   <p class="subtitle">Sometimes the speed-versus-customization tradeoff points somewhere else.</p>
                 </div>
@@ -3138,9 +3332,9 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 14 · Summary</p>
+                  <p class="eyebrow">Slide 16 · Summary</p>
                   <h2>Key takeaways</h2>
-                  <p class="subtitle">If the class remembers these five points, the presentation worked.</p>
+                  <p class="subtitle">Five points worth remembering.</p>
                 </div>
                 <div class="slide-badge">Memory slide</div>
               </header>
@@ -3170,7 +3364,7 @@
                         <div class="mini-block primary">col-md-8</div>
                         <div class="mini-block success">col-md-4</div>
                       </div>
-                      <p>Containers, rows, and columns are the layout backbone students should really understand.</p>
+                      <p>Containers, rows, and columns are the layout backbone to understand first.</p>
                     </div>
                     <div class="teach-pane" data-switch-pane="sum-components">
                       <span class="label-pill">Reuse</span>
@@ -3192,7 +3386,7 @@
                       <span class="label-pill">Decision making</span>
                       <h3>Bootstrap is helpful, but not always the right tool.</h3>
                       <div class="memory-grid">
-                        <div class="memory-card"><strong>Great for</strong>Prototypes, dashboards, team projects</div>
+                        <div class="memory-card"><strong>Great for</strong>Prototypes, dashboards, internal tools</div>
                         <div class="memory-card"><strong>Less ideal for</strong>Very custom brand systems</div>
                       </div>
                     </div>
@@ -3277,7 +3471,7 @@
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 15 · Handout</p>
+                  <p class="eyebrow">Slide 17 · Handout</p>
                   <h2>Quick-reference cheat sheet</h2>
                   <p class="subtitle">Quick recap + link to the printable handout.</p>
                 </div>
@@ -3338,13 +3532,13 @@
                     </div>
                   </section>
                   <aside class="qr-panel">
-                    <span class="label-pill">Cheat sheet</span>
-                    <h3>Printable handout</h3>
+                    <span class="label-pill">Mobile handout</span>
+                    <h3>Phone-friendly cheat sheet</h3>
                     <div class="qr-code-frame">
-                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&amp;data=https%3A%2F%2Faaditya115.github.io%2Fbootstrap_pres%2Fbootstrap_cheatsheet.html" alt="QR code linking to the Bootstrap cheat sheet">
+                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&amp;data=https%3A%2F%2Faaditya115.github.io%2Fbootstrap_pres%2Fbootstrap_cheatsheet_mobile.html" alt="QR code linking to the mobile Bootstrap cheat sheet">
                     </div>
-                    <p>Scan to open the one-page handout.</p>
-                    <div class="qr-link">aaditya115.github.io/bootstrap_pres/bootstrap_cheatsheet.html</div>
+                    <p>Scan to open the mobile cheat sheet.</p>
+                    <div class="qr-link">aaditya115.github.io/bootstrap_pres/bootstrap_cheatsheet_mobile.html</div>
                   </aside>
                 </div>
                 <section class="callout primary">Core ideas: <strong>grid, components, utilities, responsive breakpoints, and optional JS features like modals and dropdowns</strong>.</section>
@@ -3355,23 +3549,23 @@
             </section>
           </article>
 
-          <article class="slide-frame" data-title="Kahoot Time" data-subtitle="Join the Bootstrap review quiz." data-time="0.5 min" data-note="Use this slide to transition from the presentation into the Kahoot. Tell the audience they can scan the QR code or type the link manually if needed.">
+          <article class="slide-frame" data-title="Kahoot" data-subtitle="Join the Bootstrap Kahoot." data-time="0.5 min" data-note="Use this slide to transition into the Kahoot.">
             <section class="slide-card">
               <header class="slide-head">
                 <div>
-                  <p class="eyebrow">Slide 16 · Kahoot</p>
+                  <p class="eyebrow">Slide 18</p>
                   <h2>Kahoot</h2>
-                  <p class="subtitle">Join the quiz.</p>
+                  <p class="subtitle">Join the Kahoot.</p>
                 </div>
-                <div class="slide-badge">Quiz</div>
+                <div class="slide-badge">Kahoot</div>
               </header>
               <div class="slide-body">
                 <div class="cheat-sheet-wrap">
                   <section class="stack">
                     <div class="question-card">
                       <span class="label-pill">Next up</span>
-                      <h3>Bootstrap review</h3>
-                      <p>Same concepts, just faster.</p>
+                      <h3>Bootstrap Kahoot</h3>
+                      <p>Scan the code or use the link.</p>
                     </div>
                     <section class="callout primary"><strong>https://create.kahoot.it/share/bootstrap/f0abf220-c07a-41c5-8679-b76607154249</strong></section>
                   </section>
