@@ -1,0 +1,3615 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap Teaching Deck</title>
+  <style>
+    :root {
+      --primary: #0d6efd;
+      --primary-deep: #084298;
+      --indigo: #6610f2;
+      --success: #198754;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --dark: #0f172a;
+      --dark-soft: #1e293b;
+      --muted: #64748b;
+      --light: #f8fafc;
+      --card: rgba(255, 255, 255, 0.88);
+      --card-strong: rgba(255, 255, 255, 0.96);
+      --border: rgba(148, 163, 184, 0.26);
+      --shadow-xl: 0 28px 80px rgba(15, 23, 42, 0.22);
+      --shadow-lg: 0 14px 40px rgba(15, 23, 42, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --slide-width: min(1540px, calc(100vw - 8px));
+      --slide-height: min(930px, calc(100vh - 10px));
+      --stage-scale: 1;
+      --font-sans: "Segoe UI Variable", "Aptos", "Trebuchet MS", "Helvetica Neue", sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      color: var(--dark);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(13, 110, 253, 0.2), transparent 28%),
+        radial-gradient(circle at top right, rgba(102, 16, 242, 0.18), transparent 22%),
+        radial-gradient(circle at bottom right, rgba(25, 135, 84, 0.12), transparent 20%),
+        linear-gradient(135deg, #eaf2ff 0%, #f8fbff 42%, #eef4ff 100%);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(70px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.85;
+    }
+
+    body::before {
+      width: 360px;
+      height: 360px;
+      top: 8%;
+      left: -90px;
+      background: radial-gradient(circle, rgba(13, 110, 253, 0.22), transparent 68%);
+    }
+
+    body::after {
+      width: 420px;
+      height: 420px;
+      right: -100px;
+      bottom: -90px;
+      background: radial-gradient(circle, rgba(102, 16, 242, 0.18), transparent 68%);
+    }
+
+    body.notes-open .notes-panel {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    body.overview .slide-shell {
+      overflow: auto;
+      padding-bottom: 150px;
+    }
+
+    body.overview .slides-track {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      align-items: start;
+      width: 100%;
+      padding-bottom: 60px;
+      transform: none;
+      transition: none;
+    }
+
+    body.overview .slide-frame {
+      width: 100%;
+      height: 420px;
+      opacity: 1;
+      transform: none;
+      cursor: pointer;
+    }
+
+    body.overview .stage-controls,
+    body.overview .progress-wrap,
+    body.overview .keyboard-hint {
+      display: none;
+    }
+
+    .app-shell {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+    }
+
+    .sidebar {
+      position: relative;
+      padding: 22px 18px 24px;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.92));
+      color: white;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 18px;
+      min-height: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--indigo));
+      box-shadow: 0 18px 40px rgba(13, 110, 253, 0.3);
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .brand-copy h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      line-height: 1.1;
+    }
+
+    .brand-copy p {
+      margin: 4px 0 0;
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .sidebar-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .sidebar-card h2,
+    .sidebar-card h3,
+    .sidebar-card p {
+      margin: 0;
+    }
+
+    .sidebar-card h2 {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: 10px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .slide-list {
+      min-height: 0;
+      overflow: auto;
+      display: grid;
+      gap: 8px;
+      padding-right: 6px;
+    }
+
+    .slide-jump {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      color: white;
+      border-radius: 18px;
+      padding: 12px 14px;
+      display: grid;
+      gap: 4px;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+      border: 1px solid transparent;
+    }
+
+    .slide-jump:hover,
+    .slide-jump:focus-visible {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.12);
+      outline: none;
+      transform: translateX(3px);
+    }
+
+    .slide-jump.active {
+      background: linear-gradient(135deg, rgba(13, 110, 253, 0.26), rgba(102, 16, 242, 0.2));
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .slide-jump .num {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.64);
+    }
+
+    .slide-jump .title {
+      font-weight: 700;
+      font-size: 0.94rem;
+      line-height: 1.2;
+    }
+
+    .slide-jump .time {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .sidebar-footer {
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .metric {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .metric span {
+      font-size: 0.76rem;
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .workspace {
+      position: relative;
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 18px 22px 22px;
+      gap: 18px;
+    }
+
+    .app-shell,
+    .workspace,
+    .slide-shell,
+    .slides-track {
+      position: relative;
+      z-index: 1;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.62);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .toolbar-title h2 {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.15;
+    }
+
+    .toolbar-title p {
+      margin: 4px 0 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tool-btn {
+      border: 1px solid rgba(148, 163, 184, 0.34);
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--dark);
+      border-radius: 14px;
+      padding: 11px 14px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+
+    .tool-btn.primary {
+      background: linear-gradient(135deg, var(--primary), #3d8bfd);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 12px 30px rgba(13, 110, 253, 0.28);
+    }
+
+    .tool-btn:hover,
+    .tool-btn:focus-visible {
+      outline: none;
+      transform: translateY(-1px);
+      border-color: rgba(13, 110, 253, 0.35);
+    }
+
+    .slide-shell {
+      position: relative;
+      min-height: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .slides-track {
+      width: var(--slide-width);
+      height: var(--slide-height);
+      position: relative;
+    }
+
+    .slide-frame {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(48px) scale(0.98);
+      transition: opacity 260ms ease, transform 260ms ease;
+    }
+
+    .backup-slide {
+      display: none !important;
+    }
+
+    .slide-frame.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+    }
+
+    .slide-frame.prev {
+      transform: translateX(-48px) scale(0.98);
+    }
+
+    .slide-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(13, 110, 253, 0.13), transparent 26%),
+        radial-gradient(circle at bottom left, rgba(102, 16, 242, 0.1), transparent 28%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(245, 249, 255, 0.94));
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      border-radius: 34px;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .slide-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--primary), var(--indigo));
+    }
+
+    .slide-card::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      bottom: -90px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(13, 110, 253, 0.18) 0%, rgba(13, 110, 253, 0.08) 34%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .slide-head,
+    .slide-body,
+    .slide-foot {
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide-head {
+      padding: 30px 34px 14px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .slide-head h1,
+    .slide-head h2 {
+      margin: 0;
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    .slide-head h1 {
+      font-size: clamp(2.6rem, 4.6vw, 4.5rem);
+    }
+
+    .slide-head h2 {
+      font-size: clamp(2rem, 3vw, 3rem);
+    }
+
+    .subtitle {
+      margin: 12px 0 0;
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.5;
+    }
+
+    .slide-badge {
+      flex-shrink: 0;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(13, 110, 253, 0.08);
+      color: var(--primary);
+      border: 1px solid rgba(13, 110, 253, 0.12);
+      font-weight: 800;
+      font-size: 0.86rem;
+    }
+
+    .slide-body {
+      padding: 10px 34px 26px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .two-col,
+    .three-col,
+    .four-col,
+    .split-hero {
+      display: grid;
+      gap: 18px;
+    }
+
+    .two-col {
+      grid-template-columns: 1.12fr 0.88fr;
+    }
+
+    .three-col {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .four-col {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .split-hero {
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: stretch;
+    }
+
+    .panel,
+    .table-wrap,
+    .mock-browser,
+    .code-card,
+    .mini-stage,
+    .callout {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.86);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(14px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::after,
+    .table-wrap::after,
+    .mock-browser::after,
+    .code-card::after,
+    .component-card::after,
+    .stat::after {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(13,110,253,0.1), rgba(255,255,255,0));
+      pointer-events: none;
+    }
+
+    .panel {
+      padding: 20px 22px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .panel h3,
+    .panel h4,
+    .panel p {
+      margin: 0;
+    }
+
+    .panel h3 {
+      font-size: 1.12rem;
+      line-height: 1.2;
+    }
+
+    .panel h4 {
+      font-size: 0.94rem;
+      color: var(--primary-deep);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .panel p,
+    .panel li {
+      font-size: 0.97rem;
+      line-height: 1.48;
+      color: #1f2937;
+    }
+
+    .panel ul,
+    .panel ol {
+      margin: 0;
+      padding-left: 20px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .accent-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .accent-box {
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(13, 110, 253, 0.08), rgba(13, 110, 253, 0.02));
+      border: 1px solid rgba(13, 110, 253, 0.12);
+    }
+
+    .accent-box strong {
+      display: block;
+      font-size: 1.05rem;
+      color: var(--primary-deep);
+      margin-bottom: 6px;
+    }
+
+    .chips-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .ui-chip {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid rgba(148, 163, 184, 0.26);
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--dark-soft);
+    }
+
+    .callout {
+      padding: 16px 18px;
+      border-left: 6px solid var(--warning);
+      background: linear-gradient(180deg, rgba(255, 193, 7, 0.12), rgba(255, 255, 255, 0.88));
+    }
+
+    .callout.primary {
+      border-left-color: var(--primary);
+      background: linear-gradient(180deg, rgba(13, 110, 253, 0.12), rgba(255, 255, 255, 0.9));
+    }
+
+    .callout.success {
+      border-left-color: var(--success);
+      background: linear-gradient(180deg, rgba(25, 135, 84, 0.12), rgba(255, 255, 255, 0.9));
+    }
+
+    .takeaway-banner {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(13, 110, 253, 0.14), rgba(102, 16, 242, 0.08), rgba(255, 255, 255, 0.92));
+      border: 1px solid rgba(13, 110, 253, 0.14);
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
+      display: grid;
+      gap: 6px;
+    }
+
+    .takeaway-banner strong {
+      color: var(--primary-deep);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .takeaway-banner span {
+      font-size: 1.06rem;
+      line-height: 1.4;
+      color: var(--dark-soft);
+      font-weight: 800;
+    }
+
+    .mock-browser {
+      padding: 16px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .browser-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: #ff5f57;
+    }
+
+    .browser-dot:nth-child(2) {
+      background: #febc2e;
+    }
+
+    .browser-dot:nth-child(3) {
+      background: #28c840;
+    }
+
+    .browser-canvas {
+      background: rgba(248, 250, 252, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 18px;
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .fake-navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: white;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    .fake-brand {
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .fake-links {
+      display: flex;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .hero-card {
+      padding: 20px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, white, #f5f9ff);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      display: grid;
+      gap: 12px;
+    }
+
+    .skeleton {
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #dbeafe, #eef4ff);
+    }
+
+    .skeleton.short {
+      width: 38%;
+    }
+
+    .skeleton.mid {
+      width: 62%;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .demo-btn {
+      padding: 10px 15px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      border: 1px solid transparent;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .demo-btn.primary {
+      background: linear-gradient(135deg, var(--primary), #4e8ef7);
+      color: white;
+    }
+
+    .demo-btn.light {
+      background: white;
+      color: var(--dark);
+      border-color: rgba(148, 163, 184, 0.24);
+    }
+
+    .table-wrap {
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: transparent;
+      font-size: 0.95rem;
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    th {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary-deep);
+      background: rgba(13, 110, 253, 0.07);
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code,
+    pre {
+      font-family: var(--font-mono);
+    }
+
+    .code-card {
+      overflow: hidden;
+    }
+
+    .code-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #eaf2ff;
+      border-bottom: 1px solid rgba(13, 110, 253, 0.1);
+      color: var(--primary-deep);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    pre {
+      margin: 0;
+      padding: 18px 20px;
+      white-space: pre-wrap;
+      line-height: 1.5;
+      font-size: 0.92rem;
+      color: #102a43;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(243, 248, 255, 0.98));
+    }
+
+    .grid-12 {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 8px;
+    }
+
+    .grid-cell {
+      min-height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: white;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .span-8 {
+      grid-column: span 8;
+      background: rgba(13, 110, 253, 0.12);
+      color: var(--primary);
+    }
+
+    .span-4 {
+      grid-column: span 4;
+      background: rgba(25, 135, 84, 0.14);
+      color: var(--success);
+    }
+
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .component-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 249, 255, 0.96));
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: var(--shadow-lg);
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .component-label {
+      font-size: 0.83rem;
+      font-weight: 800;
+      color: var(--primary-deep);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .component-chip {
+      display: inline-flex;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(13, 110, 253, 0.1);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.82rem;
+      width: fit-content;
+    }
+
+    .demo-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .demo-toggle {
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--dark-soft);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font: inherit;
+      font-size: 0.84rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+
+    .demo-toggle:hover,
+    .demo-toggle:focus-visible {
+      outline: none;
+      transform: translateY(-1px);
+      border-color: rgba(13, 110, 253, 0.3);
+    }
+
+    .demo-toggle.active {
+      background: linear-gradient(135deg, var(--primary), #4e8ef7);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 12px 28px rgba(13, 110, 253, 0.22);
+    }
+
+    .device-frame {
+      border-radius: 28px;
+      background: linear-gradient(180deg, #122033, #1f2c47);
+      padding: 14px;
+      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.22);
+      display: grid;
+      gap: 12px;
+    }
+
+    .device-top {
+      display: flex;
+      justify-content: center;
+    }
+
+    .device-notch {
+      width: 96px;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .device-screen {
+      border-radius: 22px;
+      background: linear-gradient(180deg, #f8fbff, #eef4ff);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+      min-height: 240px;
+    }
+
+    .device-screen-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .grid-preview {
+      display: grid;
+      gap: 12px;
+      min-height: 150px;
+      transition: grid-template-columns 180ms ease;
+    }
+
+    .grid-preview.phone {
+      grid-template-columns: 1fr;
+    }
+
+    .grid-preview.tablet,
+    .grid-preview.desktop {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .grid-box {
+      padding: 16px;
+      border-radius: 18px;
+      color: white;
+      display: grid;
+      align-content: center;
+      min-height: 92px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
+    }
+
+    .grid-box strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .grid-box.main {
+      background: linear-gradient(135deg, #0d6efd, #4e8ef7);
+    }
+
+    .grid-box.side {
+      background: linear-gradient(135deg, #198754, #43b97b);
+    }
+
+    .demo-caption {
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .utility-stage {
+      display: grid;
+      gap: 14px;
+    }
+
+    .utility-demo-card {
+      padding: 20px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      transition: all 180ms ease;
+      display: grid;
+      gap: 10px;
+    }
+
+    .utility-demo-card h4,
+    .utility-demo-card p {
+      margin: 0;
+    }
+
+    .utility-demo-card.center {
+      text-align: center;
+    }
+
+    .utility-demo-card.dark {
+      background: linear-gradient(180deg, #1e293b, #0f172a);
+      color: white;
+    }
+
+    .utility-demo-card.dark p {
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .utility-demo-card.space {
+      padding: 30px;
+    }
+
+    .utility-demo-card.bold h4 {
+      font-weight: 900;
+    }
+
+    .class-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .class-badge {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(13, 110, 253, 0.08);
+      border: 1px solid rgba(13, 110, 253, 0.12);
+      color: var(--primary-deep);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .text-primary {
+      color: var(--primary-deep);
+    }
+
+    .text-muted {
+      color: var(--muted);
+    }
+
+    .fw-bold {
+      font-weight: 900;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .bg-light {
+      background: var(--light);
+    }
+
+    .rounded {
+      border-radius: 18px;
+    }
+
+    .shadow-sm {
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--dark-soft);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font: inherit;
+      font-size: 0.93rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .quiz-option:hover,
+    .quiz-option:focus-visible {
+      outline: none;
+      transform: translateY(-1px);
+      border-color: rgba(13, 110, 253, 0.3);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .quiz-option.correct {
+      border-color: rgba(25, 135, 84, 0.3);
+      background: rgba(25, 135, 84, 0.08);
+    }
+
+    .quiz-option.wrong {
+      border-color: rgba(220, 53, 69, 0.26);
+      background: rgba(220, 53, 69, 0.06);
+    }
+
+    .quiz-feedback {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(13, 110, 253, 0.08);
+      border: 1px solid rgba(13, 110, 253, 0.14);
+      color: var(--primary-deep);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      min-height: 74px;
+    }
+
+    .teach-layout {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .teach-switches {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .teach-layout.horizontal {
+      grid-template-columns: 1fr;
+    }
+
+    .teach-layout.horizontal .teach-switches {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      align-items: stretch;
+    }
+
+    .teach-layout.horizontal .teach-switches .demo-toggle {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .teach-layout.horizontal .teach-switches .try-note {
+      grid-column: 1 / -1;
+    }
+
+    .teach-layout.thumbs {
+      grid-template-columns: 1fr;
+    }
+
+    .teach-layout.thumbs .teach-switches {
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    }
+
+    .teach-layout.thumbs .teach-switches .demo-toggle {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+      min-height: 56px;
+    }
+
+    .teach-layout.thumbs .teach-switches .try-note {
+      grid-column: 1 / -1;
+    }
+
+    .teach-switches .demo-toggle {
+      width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+      padding: 12px 14px;
+    }
+
+    .teach-stage {
+      min-height: 290px;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 249, 255, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+    }
+
+    .teach-stage::before {
+      content: "";
+      position: absolute;
+      inset: auto -60px -60px auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13, 110, 253, 0.12), transparent 68%);
+      pointer-events: none;
+    }
+
+    .teach-pane {
+      display: none;
+      gap: 14px;
+      align-content: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .teach-pane.active {
+      display: grid;
+    }
+
+    .teach-pane h3,
+    .teach-pane p,
+    .teach-pane h4 {
+      margin: 0;
+    }
+
+    .try-note {
+      margin: 2px 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .label-pill {
+      display: inline-flex;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(13, 110, 253, 0.1);
+      color: var(--primary-deep);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .feature-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .feature-strip span {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--dark-soft);
+    }
+
+    .three-up {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .tiny-stat {
+      padding: 14px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(13, 110, 253, 0.08), rgba(255, 255, 255, 0.94));
+      border: 1px solid rgba(13, 110, 253, 0.12);
+    }
+
+    .tiny-stat strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--primary-deep);
+    }
+
+    .mini-layout {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .mini-layout.stack {
+      grid-template-columns: 1fr;
+    }
+
+    .mini-block {
+      padding: 18px 16px;
+      border-radius: 18px;
+      color: white;
+      font-weight: 800;
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+    }
+
+    .mini-block.primary {
+      background: linear-gradient(135deg, #0d6efd, #4e8ef7);
+    }
+
+    .mini-block.success {
+      background: linear-gradient(135deg, #198754, #43b97b);
+    }
+
+    .role-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: var(--shadow-lg);
+      display: grid;
+      gap: 10px;
+    }
+
+    .role-card strong {
+      color: var(--primary-deep);
+      font-size: 1.08rem;
+    }
+
+    .meter-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .meter-line {
+      display: grid;
+      grid-template-columns: 110px 1fr 42px;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.86rem;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .meter {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.18);
+      overflow: hidden;
+    }
+
+    .meter span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), #4e8ef7);
+    }
+
+    .component-stage {
+      display: grid;
+      gap: 14px;
+      min-height: 260px;
+    }
+
+    .form-preview {
+      display: grid;
+      gap: 10px;
+    }
+
+    .form-line {
+      height: 42px;
+      border-radius: 14px;
+      background: white;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .responsive-cards {
+      display: grid;
+      gap: 12px;
+    }
+
+    .responsive-cards.one {
+      grid-template-columns: 1fr;
+    }
+
+    .responsive-cards.two {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .responsive-cards.three {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .product-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, white, #f8fbff);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+      display: grid;
+      gap: 10px;
+    }
+
+    .product-card strong {
+      color: var(--primary-deep);
+    }
+
+    .js-demo-stage {
+      position: relative;
+      min-height: 235px;
+      padding: 16px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #f7fbff, #eef4ff);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      overflow: hidden;
+      display: grid;
+      gap: 12px;
+    }
+
+    .js-demo-navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: white;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: 16px;
+    }
+
+    .dropdown-menu-sim {
+      width: 180px;
+      padding: 10px;
+      border-radius: 16px;
+      background: white;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: var(--shadow-lg);
+      display: grid;
+      gap: 8px;
+      justify-self: end;
+    }
+
+    .dropdown-menu-sim span,
+    .offcanvas-sim span {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #f8fbff;
+      color: var(--dark-soft);
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .collapse-sim {
+      display: grid;
+      gap: 10px;
+    }
+
+    .collapse-panel {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: white;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      color: var(--dark-soft);
+    }
+
+    .modal-overlay-sim {
+      position: absolute;
+      inset: 16px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.16);
+      display: grid;
+      place-items: center;
+    }
+
+    .modal-window-sim {
+      width: min(320px, 92%);
+      padding: 18px;
+      border-radius: 20px;
+      background: white;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 20px 44px rgba(15, 23, 42, 0.18);
+      display: grid;
+      gap: 10px;
+    }
+
+    .offcanvas-sim {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 210px;
+      padding: 16px;
+      background: white;
+      border-left: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: -16px 0 30px rgba(15, 23, 42, 0.1);
+      display: grid;
+      gap: 8px;
+    }
+
+    .carousel-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      align-items: end;
+    }
+
+    .carousel-tile {
+      min-height: 118px;
+      padding: 14px;
+      border-radius: 18px;
+      background: white;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      display: grid;
+      align-content: end;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .carousel-tile.active {
+      min-height: 144px;
+      background: linear-gradient(135deg, #0d6efd, #4e8ef7);
+      color: white;
+    }
+
+    .comparison-split {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .page-preview {
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      display: grid;
+      gap: 10px;
+      min-height: 230px;
+    }
+
+    .page-preview.plain {
+      background: #ffffff;
+    }
+
+    .page-preview.bootstrap {
+      background: linear-gradient(180deg, #ffffff, #f5f9ff);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-fit {
+      display: grid;
+      gap: 12px;
+    }
+
+    .fit-score {
+      display: inline-flex;
+      width: fit-content;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(13, 110, 253, 0.1);
+      color: var(--primary-deep);
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+
+    .fit-note {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .memory-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      display: grid;
+      gap: 8px;
+    }
+
+    .memory-card strong {
+      color: var(--primary-deep);
+    }
+
+    .answer-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(25, 135, 84, 0.08);
+      border: 1px solid rgba(25, 135, 84, 0.18);
+      display: grid;
+      gap: 10px;
+    }
+
+    .quick-ref-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .alert-demo {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #fff7df;
+      color: #7c5f00;
+      border: 1px solid #f7da7e;
+      font-weight: 700;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 18px 16px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(243, 248, 255, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.08rem;
+      color: var(--primary-deep);
+      margin-bottom: 6px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .question-card {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .question-card strong {
+      color: var(--primary-deep);
+    }
+
+    .assessment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .slide-foot {
+      padding: 0 34px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .foot-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .foot-tag .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--primary);
+    }
+
+    .progress-wrap {
+      display: grid;
+      gap: 10px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .progress-bar {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.18);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), var(--indigo));
+      transition: width 220ms ease;
+    }
+
+    .stage-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 6px;
+    }
+
+    .nav-cluster {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .keyboard-hint {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .notes-panel {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      transform: translateY(120%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 220ms ease, opacity 220ms ease;
+      border-radius: 24px;
+      background: rgba(15, 23, 42, 0.94);
+      color: white;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+
+    .sidebar,
+    .toolbar,
+    .notes-panel {
+      display: none !important;
+    }
+
+    .app-shell {
+      display: block;
+    }
+
+    .workspace {
+      height: 100%;
+      grid-template-rows: 1fr auto;
+      padding: 6px 8px 8px;
+      gap: 8px;
+    }
+
+    .slide-shell {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 2px 0 54px;
+    }
+
+    .slides-track {
+      width: min(1600px, calc(100vw - 6px));
+      height: min(960px, calc(100vh - 8px));
+    }
+
+    .progress-wrap {
+      position: absolute;
+      top: 18px;
+      left: 20px;
+      width: min(240px, calc(100vw - 150px));
+      z-index: 3;
+      gap: 6px;
+      padding: 10px 12px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
+    }
+
+    .progress-meta {
+      font-size: 0.82rem;
+    }
+
+    #progressTime {
+      display: none;
+    }
+
+    .progress-bar {
+      height: 6px;
+    }
+
+    .stage-controls {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      z-index: 3;
+      padding: 0;
+      justify-content: flex-end;
+      pointer-events: none;
+    }
+
+    .nav-cluster {
+      gap: 8px;
+      padding: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.84);
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.14);
+      pointer-events: auto;
+    }
+
+    .nav-cluster .tool-btn {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      font-weight: 900;
+      box-shadow: none;
+    }
+
+    .nav-cluster .tool-btn.primary {
+      background: linear-gradient(135deg, var(--primary), #4e8ef7);
+    }
+
+    .keyboard-hint {
+      display: none;
+    }
+
+    .notes-panel header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .notes-panel h3,
+    .notes-panel p {
+      margin: 0;
+    }
+
+    .notes-content {
+      padding: 18px;
+      font-size: 0.97rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.92);
+      max-height: 28vh;
+      overflow: auto;
+    }
+
+    .notes-content strong {
+      color: #93c5fd;
+    }
+
+    .hidden-print {
+      display: inline-flex;
+    }
+
+    @media (max-width: 1200px) {
+      .workspace {
+        padding: 6px;
+      }
+
+      :root {
+        --slide-width: min(100%, calc(100vw - 8px));
+        --slide-height: min(820px, calc(100vh - 92px));
+      }
+    }
+
+    @media (max-width: 860px) {
+      body {
+        overflow: auto;
+      }
+
+      .workspace {
+        grid-template-rows: 1fr auto;
+      }
+
+      .slide-shell {
+        overflow: visible;
+        padding-bottom: 88px;
+      }
+
+      .slides-track {
+        height: auto;
+        width: 100%;
+      }
+
+      .slide-frame,
+      .slide-frame.active,
+      .slide-frame.prev {
+        position: relative;
+        opacity: 1;
+        transform: none;
+        height: auto;
+        margin-bottom: 18px;
+      }
+
+      .slide-card {
+        height: auto;
+      }
+
+      .two-col,
+      .three-col,
+      .four-col,
+      .split-hero,
+      .assessment-grid,
+      .component-grid,
+      .stats-row,
+      .accent-grid,
+      .teach-layout,
+      .three-up,
+      .responsive-cards.two,
+      .responsive-cards.three,
+      .comparison-split,
+      .memory-grid,
+      .quick-ref-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .slide-head,
+      .slide-foot {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .progress-wrap {
+        top: 12px;
+        left: 12px;
+        width: calc(100vw - 110px);
+      }
+
+      .stage-controls {
+        right: 12px;
+        bottom: 12px;
+      }
+    }
+
+    @media print {
+      body {
+        overflow: visible;
+        background: white;
+      }
+
+      .app-shell {
+        display: block;
+      }
+
+      .sidebar,
+      .toolbar,
+      .stage-controls,
+      .notes-panel {
+        display: none !important;
+      }
+
+      .workspace {
+        display: block;
+        padding: 0;
+      }
+
+      .slide-shell {
+        display: block;
+      }
+
+      .slides-track {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .slide-frame {
+        position: relative;
+        opacity: 1;
+        transform: none;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        margin: 0 0 18px;
+      }
+
+      .slide-card {
+        height: auto;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">B</div>
+        <div class="brand-copy">
+          <h1>Bootstrap Deck</h1>
+          <p>20–25 minute teaching app</p>
+        </div>
+      </div>
+
+      <section class="sidebar-card">
+        <h2>Coverage</h2>
+        <div class="chips">
+          <span class="chip">Grid</span>
+          <span class="chip">Components</span>
+          <span class="chip">Utilities</span>
+          <span class="chip">Responsive</span>
+          <span class="chip">Comparison</span>
+          <span class="chip">Assessment</span>
+        </div>
+      </section>
+
+      <div class="slide-list" id="slideList"></div>
+
+      <div class="sidebar-footer">
+        <div class="mini-metrics">
+          <div class="metric"><strong>18</strong><span>Slides</span></div>
+          <div class="metric"><strong>2</strong><span>Activities</span></div>
+          <div class="metric"><strong>8</strong><span>Questions</span></div>
+        </div>
+        <div class="sidebar-card">
+          <h2>Controls</h2>
+          <p>Use arrow keys, space, or the buttons. Press <strong>N</strong> for notes, <strong>O</strong> for overview, <strong>F</strong> for fullscreen.</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="toolbar">
+        <div class="toolbar-title">
+          <h2 id="toolbarTitle">Bootstrap: What it is and why it matters</h2>
+          <p id="toolbarSubtitle">A polished, presenter-friendly teaching deck for classmates new to Bootstrap.</p>
+        </div>
+        <div class="toolbar-actions">
+          <button class="tool-btn" id="overviewBtn" type="button">Overview</button>
+          <button class="tool-btn" id="notesBtn" type="button">Notes</button>
+          <button class="tool-btn hidden-mobile" id="fullscreenBtn" type="button">Fullscreen</button>
+          <button class="tool-btn primary" id="startBtn" type="button">Start Presentation</button>
+        </div>
+      </header>
+
+      <section class="slide-shell">
+        <div class="slides-track" id="slidesTrack">
+          <article class="slide-frame active" data-title="Bootstrap" data-subtitle="What it is and why it matters in modern web development." data-time="0.75 min" data-note="Frame Bootstrap as a practical toolkit for building better interfaces faster. Tell the class the goal is understanding and tradeoffs, not memorizing every class name.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 01 · Title</p>
+                  <h1>Bootstrap</h1>
+                  <p class="subtitle">What it is and why it matters in modern web development.</p>
+                </div>
+                <div class="slide-badge">15 min + Kahoot</div>
+              </header>
+              <div class="slide-body">
+                <div class="split-hero">
+                  <section class="panel">
+                    <h3>Today’s focus</h3>
+                    <div class="chips-row">
+                      <span class="ui-chip">What it is</span>
+                      <span class="ui-chip">Why people use it</span>
+                      <span class="ui-chip">Grid</span>
+                      <span class="ui-chip">Components</span>
+                      <span class="ui-chip">Utilities</span>
+                      <span class="ui-chip">When to choose it</span>
+                    </div>
+                    <div class="accent-grid">
+                      <div class="accent-box">
+                        <strong>Audience</strong>
+                        Beginners to intermediate students with some HTML, CSS, and basic JavaScript.
+                      </div>
+                      <div class="accent-box">
+                        <strong>Goal</strong>
+                        Understand how Bootstrap helps, where it fits, and when it does not.
+                      </div>
+                    </div>
+                    <div class="callout primary">The deck itself uses a clean, Bootstrap-inspired UI language: cards, spacing, consistent components, and clear hierarchy.</div>
+                  </section>
+                  <section class="mock-browser">
+                    <div class="browser-bar">
+                      <span class="browser-dot"></span>
+                      <span class="browser-dot"></span>
+                      <span class="browser-dot"></span>
+                    </div>
+                    <div class="browser-canvas">
+                      <div class="fake-navbar">
+                        <span class="fake-brand">bootstrap()</span>
+                        <div class="fake-links">
+                          <span>Grid</span>
+                          <span>Cards</span>
+                          <span>Utilities</span>
+                        </div>
+                      </div>
+                      <div class="hero-card">
+                        <div class="skeleton short"></div>
+                        <div class="skeleton"></div>
+                        <div class="skeleton mid"></div>
+                        <div class="button-row">
+                          <span class="demo-btn primary">Get Started</span>
+                          <span class="demo-btn light">See Demo</span>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Bootstrap-inspired presentation UI</div>
+                <div class="foot-tag">Clear explanation over feature dumping</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Hook / Motivation" data-subtitle="Why developers reach for Bootstrap in the first place." data-time="0.75 min" data-note="Start with the pain point students likely know: HTML is fast, polish is slow. Emphasize that Bootstrap saves time on spacing, components, and responsiveness.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 02 · Hook</p>
+                  <h2>Why does Bootstrap exist?</h2>
+                  <p class="subtitle">Building a clean, responsive interface from scratch takes more time than many new developers expect.</p>
+                </div>
+                <div class="slide-badge">Problem → solution</div>
+              </header>
+              <div class="slide-body">
+                <div class="two-col">
+                  <section class="panel">
+                    <h3>Without a framework</h3>
+                    <ul>
+                      <li>Write layout CSS yourself</li>
+                      <li>Style buttons, cards, forms, alerts, and navbars by hand</li>
+                      <li>Test multiple screen sizes and fix breakpoints manually</li>
+                      <li>Repeat the same patterns across different pages</li>
+                    </ul>
+                    <div class="callout">A simple page can work functionally, but still look unfinished or break on smaller screens.</div>
+                  </section>
+                  <section class="panel">
+                    <h3>With Bootstrap</h3>
+                    <div class="stats-row">
+                      <div class="stat"><strong>Faster</strong>Ready-made layout and UI patterns</div>
+                      <div class="stat"><strong>Cleaner</strong>Built-in spacing and hierarchy</div>
+                      <div class="stat"><strong>Responsive</strong>Mobile-first defaults</div>
+                      <div class="stat"><strong>Reusable</strong>Consistent class-based system</div>
+                    </div>
+                    <div class="mock-browser">
+                      <div class="browser-canvas">
+                        <div class="hero-card">
+                          <div class="skeleton short"></div>
+                          <div class="skeleton"></div>
+                          <div class="button-row">
+                            <span class="demo-btn primary">Primary</span>
+                            <span class="demo-btn light">Secondary</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Bootstrap removes repetitive interface setup</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="What Is Bootstrap?" data-subtitle="Define it clearly for beginners." data-time="1 min" data-note="Define Bootstrap simply. Make clear that it is not a website builder and not a replacement for HTML. It is a toolkit layered on top of normal web technologies.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 03 · Definition</p>
+                  <h2>What is Bootstrap?</h2>
+                  <p class="subtitle">A front-end CSS framework with a responsive grid, prebuilt components, utility classes, and a few optional interactive features.</p>
+                </div>
+                <div class="slide-badge">Toolkit</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>Bootstrap is a toolkit that gives you layout, components, and styling shortcuts so you can build polished pages faster.</span>
+                </section>
+                <section class="teach-layout" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="what-layout">Layout</button>
+                    <button class="demo-toggle" type="button" data-switch-target="what-components">Components</button>
+                    <button class="demo-toggle" type="button" data-switch-target="what-utilities">Utilities</button>
+                    <button class="demo-toggle" type="button" data-switch-target="what-js">JS extras</button>
+                    <p class="try-note">Click each part of Bootstrap. The preview on the right gives you the classroom-friendly explanation.</p>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="what-layout">
+                      <span class="label-pill">Layout layer</span>
+                      <h3>Bootstrap helps you place content before you style it.</h3>
+                      <div class="mini-layout">
+                        <div class="mini-block primary">Main content</div>
+                        <div class="mini-block success">Sidebar</div>
+                      </div>
+                      <div class="feature-strip">
+                        <span>container</span>
+                        <span>row</span>
+                        <span>col-md-8</span>
+                        <span>col-md-4</span>
+                      </div>
+                      <p>Use containers, rows, and columns to create structure and responsive layout without writing every CSS rule from scratch.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="what-components">
+                      <span class="label-pill">UI building blocks</span>
+                      <h3>Bootstrap ships with ready-made interface pieces.</h3>
+                      <div class="fake-navbar">
+                        <span class="fake-brand">CampusHub</span>
+                        <div class="fake-links"><span>Home</span><span>Events</span><span>Account</span></div>
+                      </div>
+                      <div class="button-row">
+                        <span class="demo-btn primary">btn btn-primary</span>
+                        <span class="demo-btn light">card</span>
+                        <span class="demo-btn light">alert</span>
+                      </div>
+                      <p>Buttons, cards, navbars, forms, and alerts help you assemble a clean page quickly.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="what-utilities">
+                      <span class="label-pill">Styling shortcuts</span>
+                      <h3>Utilities let you make fast visual changes directly in HTML.</h3>
+                      <div class="utility-demo-card space center">
+                        <h4 class="text-primary">Welcome</h4>
+                        <p>Spacing, alignment, color, and display classes are all ready to use.</p>
+                      </div>
+                      <div class="class-badges">
+                        <span class="class-badge">p-4</span>
+                        <span class="class-badge">text-center</span>
+                        <span class="class-badge">fw-bold</span>
+                      </div>
+                      <p>That is why Bootstrap is fast to learn: common visual changes follow naming patterns instead of custom CSS every time.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="what-js">
+                      <span class="label-pill">Optional interactivity</span>
+                      <h3>Bootstrap can also power common interface behavior.</h3>
+                      <div class="feature-strip">
+                        <span>modal</span>
+                        <span>dropdown</span>
+                        <span>collapse</span>
+                        <span>offcanvas</span>
+                      </div>
+                      <div class="role-card">
+                        <strong>Important distinction</strong>
+                        Bootstrap can include interactive components, but it is still mainly a front-end UI framework, not a programming language.
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <div class="callout primary">You still write HTML. You often write less CSS. You can still add custom CSS whenever the project needs it.</div>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Framework for interface structure and styling</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame backup-slide" data-title="Why Bootstrap Became Popular" data-subtitle="The workflow benefits that made it common." data-time="1.5 min" data-note="Connect Bootstrap’s popularity to workflow: speed, consistency, responsiveness, and reusable patterns. Those benefits matter especially in student projects and teams.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 04 · Popularity</p>
+                  <h2>Why developers use Bootstrap</h2>
+                  <p class="subtitle">It became popular because it solves common interface problems before a project even begins.</p>
+                </div>
+                <div class="slide-badge">Why it spread</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>Bootstrap is closest to CSS tools because it helps with layout and styling, while JavaScript controls behavior and logic.</span>
+                </section>
+                <section class="teach-layout" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="why-speed">Speed</button>
+                    <button class="demo-toggle" type="button" data-switch-target="why-responsive">Responsive</button>
+                    <button class="demo-toggle" type="button" data-switch-target="why-reusable">Reusable</button>
+                    <button class="demo-toggle" type="button" data-switch-target="why-team">Team-friendly</button>
+                    <p class="try-note">Use these buttons as your speaking order. Each one gives you a concrete example to point at.</p>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="why-speed">
+                      <span class="label-pill">Deadline advantage</span>
+                      <h3>Bootstrap became popular because it saves setup time.</h3>
+                      <div class="three-up">
+                        <div class="tiny-stat"><strong>Step 1</strong>Add Bootstrap classes</div>
+                        <div class="tiny-stat"><strong>Step 2</strong>Get spacing and layout quickly</div>
+                        <div class="tiny-stat"><strong>Step 3</strong>Spend time on content and logic</div>
+                      </div>
+                      <p>For student teams, faster setup often means more time to debug, improve, and actually finish the project.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="why-responsive">
+                      <span class="label-pill">Built for multiple screens</span>
+                      <h3>Responsive design is built into the class system.</h3>
+                      <div class="responsive-cards three">
+                        <div class="product-card"><strong>Phone</strong>1 card per row</div>
+                        <div class="product-card"><strong>Tablet</strong>2 cards per row</div>
+                        <div class="product-card"><strong>Desktop</strong>3 cards per row</div>
+                      </div>
+                      <p>Bootstrap’s breakpoint classes make it easier to explain and build layouts that change across screen sizes.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="why-reusable">
+                      <span class="label-pill">Repeatable patterns</span>
+                      <h3>Reusable components keep pages from feeling random.</h3>
+                      <div class="three-up">
+                        <div class="hero-card"><div class="skeleton short"></div><div class="skeleton"></div></div>
+                        <div class="hero-card"><div class="skeleton short"></div><div class="skeleton"></div></div>
+                        <div class="hero-card"><div class="skeleton short"></div><div class="skeleton"></div></div>
+                      </div>
+                      <p>When a project has multiple pages, the same components can be reused instead of rebuilt.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="why-team">
+                      <span class="label-pill">Shared language</span>
+                      <h3>Teams like Bootstrap because the class names are predictable.</h3>
+                      <div class="feature-strip">
+                        <span>btn btn-primary</span>
+                        <span>container</span>
+                        <span>form-control</span>
+                        <span>alert alert-warning</span>
+                      </div>
+                      <div class="role-card">
+                        <strong>Why it helps</strong>
+                        Teammates can recognize common patterns quickly, which reduces guesswork during group work.
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Popular because it solves recurring UI work early</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Bootstrap vs CSS and JavaScript" data-subtitle="Clarify what Bootstrap is not." data-time="1 min" data-note="Correct the common misconception directly. Bootstrap is mostly about layout and styling. JavaScript is a programming language for behavior and logic.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 04 · Comparison</p>
+                  <h2>Bootstrap vs plain CSS and JavaScript</h2>
+                  <p class="subtitle">Bootstrap is mainly a CSS/UI framework. JavaScript is a programming language. They solve different problems.</p>
+                </div>
+                <div class="slide-badge">Not the same thing</div>
+              </header>
+              <div class="slide-body">
+                <section class="teach-layout" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="tool-bootstrap">Bootstrap</button>
+                    <button class="demo-toggle" type="button" data-switch-target="tool-css">CSS</button>
+                    <button class="demo-toggle" type="button" data-switch-target="tool-js">JavaScript</button>
+                    <p class="try-note">If your team gets stuck, click each button and read the “best for” line aloud.</p>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="tool-bootstrap">
+                      <span class="label-pill">UI toolkit</span>
+                      <h3>Bootstrap helps pages look organized quickly.</h3>
+                      <div class="role-card">
+                        <strong>Best for</strong>
+                        Layout, styling, components, and responsive structure.
+                      </div>
+                      <div class="class-badges">
+                        <span class="class-badge">btn btn-primary</span>
+                        <span class="class-badge">container</span>
+                        <span class="class-badge">card</span>
+                      </div>
+                      <p>Analogy: Bootstrap is like a box of ready-made interface pieces you can assemble fast.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="tool-css">
+                      <span class="label-pill">Styling language</span>
+                      <h3>CSS defines how elements should look.</h3>
+                      <div class="role-card">
+                        <strong>Best for</strong>
+                        Custom styles, full control, and creating original visual systems.
+                      </div>
+                      <pre>button {
+  background: blue;
+  padding: 12px 16px;
+}</pre>
+                      <p>Analogy: CSS is the set of paint and design rules you use to style the page.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="tool-js">
+                      <span class="label-pill">Programming language</span>
+                      <h3>JavaScript controls behavior and logic.</h3>
+                      <div class="role-card">
+                        <strong>Best for</strong>
+                        Click events, data handling, app logic, and interactivity.
+                      </div>
+                      <pre>button.addEventListener("click", () => {
+  openModal();
+});</pre>
+                      <p>Analogy: JavaScript is the part that makes the interface do something.</p>
+                    </div>
+                  </div>
+                </section>
+                <section class="callout primary">Short version: Bootstrap is closest to CSS tools, not to JavaScript itself.</section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Bootstrap helps present UI; JavaScript controls behavior</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Comparable Tools" data-subtitle="Place Bootstrap among plain CSS, Tailwind, Bulma, and Foundation." data-time="1 min" data-note="Give students a simple mental map. The goal is not to rank frameworks but to show that different tools optimize for different tradeoffs.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 05 · Landscape</p>
+                  <h2>What is Bootstrap comparable to?</h2>
+                  <p class="subtitle">These tools all help with front-end styling, but they work in different ways and make different tradeoffs.</p>
+                </div>
+                <div class="slide-badge">Beginner map</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>For this class, the most useful comparison is simple: plain CSS gives maximum control, Bootstrap gives speed, and Tailwind gives utility-first flexibility.</span>
+                </section>
+                <section class="teach-layout horizontal" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="compare-css">Plain CSS</button>
+                    <button class="demo-toggle" type="button" data-switch-target="compare-bootstrap">Bootstrap</button>
+                    <button class="demo-toggle" type="button" data-switch-target="compare-tailwind">Tailwind</button>
+                    <p class="try-note">Three choices are enough here. Mention Bulma and Foundation only as other frameworks that exist.</p>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="compare-css">
+                      <span class="label-pill">Plain CSS</span>
+                      <h3>You build everything yourself.</h3>
+                      <div class="meter-stack">
+                        <div class="meter-line"><span>Speed</span><div class="meter"><span style="width: 42%"></span></div><strong>42</strong></div>
+                        <div class="meter-line"><span>Control</span><div class="meter"><span style="width: 100%"></span></div><strong>100</strong></div>
+                        <div class="meter-line"><span>Default UI</span><div class="meter"><span style="width: 14%"></span></div><strong>14</strong></div>
+                      </div>
+                      <p>Best if you want complete control and do not mind writing more styling yourself.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="compare-bootstrap">
+                      <span class="label-pill">Bootstrap</span>
+                      <h3>Ready-made UI toolkit with responsive structure built in.</h3>
+                      <div class="meter-stack">
+                        <div class="meter-line"><span>Speed</span><div class="meter"><span style="width: 90%"></span></div><strong>90</strong></div>
+                        <div class="meter-line"><span>Control</span><div class="meter"><span style="width: 68%"></span></div><strong>68</strong></div>
+                        <div class="meter-line"><span>Default UI</span><div class="meter"><span style="width: 88%"></span></div><strong>88</strong></div>
+                      </div>
+                      <p>Best if you want a polished result quickly and can accept some framework defaults.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="compare-tailwind">
+                      <span class="label-pill">Tailwind</span>
+                      <h3>Utility-first styling right inside your markup.</h3>
+                      <div class="meter-stack">
+                        <div class="meter-line"><span>Speed</span><div class="meter"><span style="width: 82%"></span></div><strong>82</strong></div>
+                        <div class="meter-line"><span>Control</span><div class="meter"><span style="width: 88%"></span></div><strong>88</strong></div>
+                        <div class="meter-line"><span>Default UI</span><div class="meter"><span style="width: 28%"></span></div><strong>28</strong></div>
+                      </div>
+                      <p>Best if you want flexibility and do not mind class-heavy HTML.</p>
+                    </div>
+                  </div>
+                </section>
+                <section class="callout success">Quick question for the room: if your project is due tonight and needs to look decent fast, which of these three would you choose?</section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Bootstrap sits between total control and utility-heavy systems</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Core Feature 1: Grid" data-subtitle="Containers, rows, columns, and responsive layout." data-time="1.25 min" data-note="Slow down here. The grid is one of the most important ideas. Explain the 12-column concept and how the layout changes at breakpoints.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 06 · Core Feature</p>
+                  <h2>Grid system</h2>
+                  <p class="subtitle">Bootstrap uses containers, rows, and columns to build layouts that adapt across screen sizes.</p>
+                </div>
+                <div class="slide-badge">Layout engine</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>The grid matters because one set of classes can change the layout automatically across phone, tablet, and desktop screens.</span>
+                </section>
+                <div class="two-col">
+                  <section class="code-card">
+                    <div class="code-head">Example markup</div>
+                    <pre>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-md-8"&gt;Main content&lt;/div&gt;
+    &lt;div class="col-md-4"&gt;Sidebar&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+                  </section>
+                  <section class="panel">
+                    <h3>Interactive grid visual</h3>
+                    <div class="demo-toolbar" id="gridDemoControls">
+                      <button class="demo-toggle active" type="button" data-grid-view="phone">Phone</button>
+                      <button class="demo-toggle" type="button" data-grid-view="tablet">Tablet</button>
+                      <button class="demo-toggle" type="button" data-grid-view="desktop">Desktop</button>
+                    </div>
+                    <div class="device-frame">
+                      <div class="device-top"><div class="device-notch"></div></div>
+                      <div class="device-screen">
+                        <div class="device-screen-header">
+                          <span id="gridViewportLabel">Phone view</span>
+                          <span id="gridViewportMeaning">Columns stack before the `md` breakpoint.</span>
+                        </div>
+                        <div class="grid-preview phone" id="gridPreview">
+                          <div class="grid-box main"><strong>Main content</strong>Uses `col-md-8`</div>
+                          <div class="grid-box side"><strong>Sidebar</strong>Uses `col-md-4`</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="demo-caption" id="gridDemoCaption">At phone width, the columns stack vertically because `md` rules have not started yet.</div>
+                  </section>
+                </div>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Twelve-column mental model</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Core Feature 2: Components" data-subtitle="Reusable interface building blocks." data-time="1.25 min" data-note="Explain that components save time because most projects need the same interface patterns. Bootstrap gives those patterns a reliable starting point.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 07 · Core Feature</p>
+                  <h2>Prebuilt components</h2>
+                  <p class="subtitle">Bootstrap gives you common UI building blocks that already look organized and usable.</p>
+                </div>
+                <div class="slide-badge">Time saver</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>Components save time because they give you polished versions of common UI patterns you would otherwise rebuild yourself.</span>
+                </section>
+                <section class="teach-layout thumbs" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="component-button">Button</button>
+                    <button class="demo-toggle" type="button" data-switch-target="component-card">Card</button>
+                    <button class="demo-toggle" type="button" data-switch-target="component-navbar">Navbar</button>
+                    <button class="demo-toggle" type="button" data-switch-target="component-form">Form</button>
+                    <p class="try-note">Four components are enough for a live presentation. Mention alerts and modals aloud if needed.</p>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="component-button">
+                      <span class="label-pill">Call to action</span>
+                      <h3>Buttons make the important action obvious.</h3>
+                      <div class="button-row">
+                        <span class="demo-btn primary">btn btn-primary</span>
+                        <span class="demo-btn light">btn btn-outline-secondary</span>
+                      </div>
+                      <p>Use buttons when the user should notice and click something important, like Submit, Learn more, or Save.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="component-card">
+                      <span class="label-pill">Content grouping</span>
+                      <h3>Cards wrap related content into a single visual block.</h3>
+                      <div class="hero-card">
+                        <div class="skeleton short"></div>
+                        <div class="skeleton"></div>
+                        <div class="skeleton mid"></div>
+                        <div class="button-row"><span class="demo-btn light">Read more</span></div>
+                      </div>
+                      <p>Cards are common for products, events, news, profiles, and dashboard widgets.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="component-navbar">
+                      <span class="label-pill">Navigation</span>
+                      <h3>Navbars give your page a clean top-level structure.</h3>
+                      <div class="fake-navbar">
+                        <span class="fake-brand">Class Portal</span>
+                        <div class="fake-links"><span>Home</span><span>Schedule</span><span>Resources</span></div>
+                      </div>
+                      <p>They help users understand where they are and what sections exist in the site.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="component-form">
+                      <span class="label-pill">User input</span>
+                      <h3>Forms look more organized when Bootstrap styles the inputs consistently.</h3>
+                      <div class="form-preview">
+                        <div class="form-line">Email address</div>
+                        <div class="form-line">Password</div>
+                        <div class="button-row"><span class="demo-btn primary">Submit</span></div>
+                      </div>
+                      <p>Inputs, labels, and spacing feel cleaner and more consistent without hand-styling every field.</p>
+                    </div>
+                  </div>
+                </section>
+                <section class="callout primary">Also worth mentioning aloud: alerts help with feedback, and modals help with focused tasks.</section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Buttons, cards, navbars, forms, alerts, modals</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Core Feature 3: Utilities" data-subtitle="Small classes that make quick styling changes." data-time="1 min" data-note="Present utility classes as shortcuts for common layout and styling tweaks. Also mention the tradeoff: too many can make markup noisy.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 08 · Core Feature</p>
+                  <h2>Utility classes</h2>
+                  <p class="subtitle">Small classes let you make quick styling changes without writing custom CSS every time.</p>
+                </div>
+                <div class="slide-badge">Fast tweaks</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>Utilities are powerful because one small class can immediately change spacing, alignment, or color without writing custom CSS.</span>
+                </section>
+                <div class="two-col">
+                  <section class="panel">
+                    <h3>Common utility groups</h3>
+                    <ul>
+                      <li>Spacing: <code>mt-3</code>, <code>p-4</code>, <code>mx-auto</code></li>
+                      <li>Color: <code>text-primary</code>, <code>bg-dark</code>, <code>text-white</code></li>
+                      <li>Flexbox: <code>d-flex</code>, <code>justify-content-between</code>, <code>align-items-center</code></li>
+                      <li>Text: <code>text-center</code>, <code>fw-bold</code></li>
+                      <li>Display: <code>d-none</code>, <code>d-md-block</code></li>
+                    </ul>
+                  </section>
+                  <section class="panel">
+                    <h3>Interactive utility playground</h3>
+                    <div class="utility-stage">
+                      <div class="demo-toolbar" id="utilityDemoControls">
+                        <button class="demo-toggle active" type="button" data-utility="space">p-4</button>
+                        <button class="demo-toggle" type="button" data-utility="dark">bg-dark</button>
+                        <button class="demo-toggle" type="button" data-utility="center">text-center</button>
+                        <button class="demo-toggle" type="button" data-utility="bold">fw-bold</button>
+                      </div>
+                      <div class="utility-demo-card space" id="utilityDemoCard">
+                        <h4 id="utilityDemoTitle">Welcome</h4>
+                        <p id="utilityDemoText">This preview changes as you add or remove Bootstrap-style utility classes.</p>
+                      </div>
+                      <div class="class-badges" id="utilityClassBadges">
+                        <span class="class-badge">p-4</span>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+                <section class="callout">Utilities are great for quick spacing and alignment changes. Too many can make your HTML harder to read, so balance still matters.</section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Spacing, color, text, flex, display</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Core Feature 4: Responsive Design" data-subtitle="Breakpoints and mobile-first thinking." data-time="1 min" data-note="Explain mobile-first simply: start with the small layout, then add larger-screen behavior. Decode the sample class carefully.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 09 · Core Feature</p>
+                  <h2>Responsive design</h2>
+                  <p class="subtitle">Bootstrap is mobile-first. You start with the small-screen layout and add larger-screen behavior using breakpoint classes.</p>
+                </div>
+                <div class="slide-badge">Mobile first</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>Mobile-first means you start with the small-screen layout first, then add breakpoint classes when the screen gets bigger.</span>
+                </section>
+                <div class="two-col">
+                  <section class="panel">
+                    <h3>Breakpoints</h3>
+                    <ul>
+                      <li><code>sm</code> = 576px and up</li>
+                      <li><code>md</code> = 768px and up</li>
+                      <li><code>lg</code> = 992px and up</li>
+                      <li><code>xl</code> = 1200px and up</li>
+                      <li><code>xxl</code> = 1400px and up</li>
+                    </ul>
+                    <div class="callout primary">Teach this slide with one sentence: start with the small-screen layout first, then add wider-screen rules when you need them.</div>
+                  </section>
+                  <section class="panel">
+                    <h3>Interactive responsive preview</h3>
+                    <section class="teach-layout horizontal" data-switcher>
+                      <div class="teach-switches">
+                        <button class="demo-toggle active" type="button" data-switch-target="resp-phone">Phone</button>
+                        <button class="demo-toggle" type="button" data-switch-target="resp-tablet">Tablet</button>
+                        <button class="demo-toggle" type="button" data-switch-target="resp-desktop">Desktop</button>
+                      </div>
+                      <div class="teach-stage">
+                        <div class="teach-pane active" data-switch-pane="resp-phone">
+                          <span class="label-pill">col-12</span>
+                          <h3>One card per row on small screens</h3>
+                          <div class="responsive-cards one">
+                            <div class="product-card"><strong>Workshop</strong>Full width</div>
+                            <div class="product-card"><strong>Hackathon</strong>Full width</div>
+                            <div class="product-card"><strong>Meetup</strong>Full width</div>
+                          </div>
+                        </div>
+                        <div class="teach-pane" data-switch-pane="resp-tablet">
+                          <span class="label-pill">col-md-6</span>
+                          <h3>Two cards per row at the medium breakpoint</h3>
+                          <div class="responsive-cards two">
+                            <div class="product-card"><strong>Workshop</strong>Half width</div>
+                            <div class="product-card"><strong>Hackathon</strong>Half width</div>
+                            <div class="product-card"><strong>Meetup</strong>Half width</div>
+                          </div>
+                        </div>
+                        <div class="teach-pane" data-switch-pane="resp-desktop">
+                          <span class="label-pill">col-lg-4</span>
+                          <h3>Three cards per row on larger screens</h3>
+                          <div class="responsive-cards three">
+                            <div class="product-card"><strong>Workshop</strong>One-third</div>
+                            <div class="product-card"><strong>Hackathon</strong>One-third</div>
+                            <div class="product-card"><strong>Meetup</strong>One-third</div>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </section>
+                </div>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> One element, multiple layouts across screens</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame backup-slide" data-title="Bootstrap JavaScript Components" data-subtitle="Keep the JS part in perspective." data-time="1 min" data-note="Keep this slide short. Students should not mistake Bootstrap for a full JavaScript framework. Mention Bootstrap 5 no longer depends on jQuery.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 11 · JavaScript</p>
+                  <h2>Bootstrap JavaScript components</h2>
+                  <p class="subtitle">Some Bootstrap features add interactivity, but Bootstrap’s biggest beginner value is still layout, styling, and reusable UI patterns.</p>
+                </div>
+                <div class="slide-badge">Optional behavior</div>
+              </header>
+              <div class="slide-body">
+                <section class="teach-layout" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="js-collapse">Collapse</button>
+                    <button class="demo-toggle" type="button" data-switch-target="js-dropdown">Dropdown</button>
+                    <button class="demo-toggle" type="button" data-switch-target="js-modal">Modal</button>
+                    <button class="demo-toggle" type="button" data-switch-target="js-offcanvas">Offcanvas</button>
+                    <button class="demo-toggle" type="button" data-switch-target="js-carousel">Carousel</button>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="js-collapse">
+                      <span class="label-pill">Show / hide content</span>
+                      <h3>Collapse reveals extra content when needed.</h3>
+                      <div class="js-demo-stage">
+                        <div class="collapse-sim">
+                          <div class="demo-btn light">Show details</div>
+                          <div class="collapse-panel">This panel appears only when the section is expanded. Good for FAQs and mobile menus.</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="js-dropdown">
+                      <span class="label-pill">Menu options</span>
+                      <h3>Dropdowns keep extra actions compact.</h3>
+                      <div class="js-demo-stage">
+                        <div class="js-demo-navbar">
+                          <span class="fake-brand">Account</span>
+                          <span class="demo-btn light">Menu</span>
+                        </div>
+                        <div class="dropdown-menu-sim">
+                          <span>Profile</span>
+                          <span>Settings</span>
+                          <span>Sign out</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="js-modal">
+                      <span class="label-pill">Focused overlay</span>
+                      <h3>Modals pause the page and focus attention on one task.</h3>
+                      <div class="js-demo-stage">
+                        <div class="modal-overlay-sim">
+                          <div class="modal-window-sim">
+                            <strong>Delete file?</strong>
+                            <p>This action needs a clear confirmation from the user.</p>
+                            <div class="button-row"><span class="demo-btn light">Cancel</span><span class="demo-btn primary">Delete</span></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="js-offcanvas">
+                      <span class="label-pill">Side panel</span>
+                      <h3>Offcanvas is popular for mobile menus and side tools.</h3>
+                      <div class="js-demo-stage">
+                        <div class="js-demo-navbar">
+                          <span class="fake-brand">Site</span>
+                          <span class="demo-btn light">Open menu</span>
+                        </div>
+                        <div class="offcanvas-sim">
+                          <span>Home</span>
+                          <span>Courses</span>
+                          <span>Profile</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="js-carousel">
+                      <span class="label-pill">Sliding content</span>
+                      <h3>Carousels cycle through featured items.</h3>
+                      <div class="js-demo-stage">
+                        <div class="carousel-strip">
+                          <div class="carousel-tile active">Slide 1</div>
+                          <div class="carousel-tile">Slide 2</div>
+                          <div class="carousel-tile">Slide 3</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section class="callout">Helpful interactive pieces exist, but Bootstrap is still mainly a UI framework, not a replacement for JavaScript app logic.</section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Good to know, but not the main story</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Before / After Demo" data-subtitle="A plain HTML page becomes cleaner with Bootstrap." data-time="1.25 min" data-note="Use this to show practical value. The content stays almost the same, but the spacing, hierarchy, and visual grouping improve.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 10 · Demo</p>
+                  <h2>Before / after walkthrough</h2>
+                  <p class="subtitle">The HTML content barely changes, but the page becomes clearer, more structured, and easier to use.</p>
+                </div>
+                <div class="slide-badge">Live-demo style</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>Bootstrap improves weak-looking pages mainly through better spacing, structure, and clearer visual hierarchy.</span>
+                </section>
+                <section class="teach-layout horizontal" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="demo-plain">Plain HTML</button>
+                    <button class="demo-toggle" type="button" data-switch-target="demo-bootstrap">Bootstrap version</button>
+                    <button class="demo-toggle" type="button" data-switch-target="demo-takeaway">What changed?</button>
+                    <p class="try-note">This is a presenter-friendly demo slide: click from plain to Bootstrap and narrate the visual difference.</p>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="demo-plain">
+                      <span class="label-pill">Before</span>
+                      <h3>Plain HTML works, but it feels unfinished.</h3>
+                      <div class="page-preview plain">
+                        <h3>Campus Events</h3>
+                        <p>See upcoming workshops and club meetings.</p>
+                        <div class="demo-btn light">Learn more</div>
+                      </div>
+                      <pre>&lt;h1&gt;Campus Events&lt;/h1&gt;
+&lt;p&gt;See upcoming workshops and club meetings.&lt;/p&gt;
+&lt;button&gt;Learn more&lt;/button&gt;</pre>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="demo-bootstrap">
+                      <span class="label-pill">After</span>
+                      <h3>Bootstrap adds spacing, hierarchy, and a clearer action.</h3>
+                      <div class="page-preview bootstrap">
+                        <div class="hero-card">
+                          <h3>Campus Events</h3>
+                          <p>See upcoming workshops and club meetings.</p>
+                          <div class="button-row"><span class="demo-btn primary">Learn more</span></div>
+                        </div>
+                      </div>
+                      <pre>&lt;div class="container py-5"&gt;
+  &lt;div class="card p-4 shadow-sm"&gt;
+    ...
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="demo-takeaway">
+                      <span class="label-pill">Why it feels better</span>
+                      <h3>The content stayed the same. The structure and styling changed.</h3>
+                      <div class="memory-grid">
+                        <div class="memory-card"><strong>Container</strong>Creates breathing room</div>
+                        <div class="memory-card"><strong>Card</strong>Groups content visually</div>
+                        <div class="memory-card"><strong>Spacing classes</strong>Improve rhythm and readability</div>
+                        <div class="memory-card"><strong>Button styling</strong>Makes the main action obvious</div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Same content, better structure and polish</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Interactive Activity" data-subtitle="Predict what Bootstrap code does." data-time="1.5 min" data-note="Let the class answer before revealing. Encourage reasoning, not just guessing. This checks both class naming intuition and responsive layout understanding.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 11 · Interactive</p>
+                  <h2>Your turn</h2>
+                  <p class="subtitle">Predict what this code does before the answer appears. Bootstrap becomes easier when you learn to read the class names.</p>
+                </div>
+                <div class="slide-badge">2 quick prompts</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>If students can correctly read what the class names will do, they already understand Bootstrap much better.</span>
+                </section>
+                <div class="two-col">
+                  <section class="code-card">
+                    <div class="code-head">Code-reading challenge</div>
+                    <pre>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-12 col-md-6"&gt;A&lt;/div&gt;
+    &lt;div class="col-12 col-md-6"&gt;B&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+                  </section>
+                  <section class="panel">
+                    <h3>Interactive class prediction</h3>
+                    <div class="quiz-options" id="quizOptions">
+                      <button class="quiz-option" type="button" data-result="wrong">A and B stay side-by-side on every screen size.</button>
+                      <button class="quiz-option" type="button" data-result="correct">A and B stack on phones, then become two equal columns at the `md` breakpoint.</button>
+                      <button class="quiz-option" type="button" data-result="wrong">A takes two-thirds width and B takes one-third width on medium screens.</button>
+                    </div>
+                    <div class="quiz-feedback" id="quizFeedback">Choose the answer you think matches the code. Then explain why the `col-12` and `col-md-6` parts both matter.</div>
+                    <div class="callout success"><strong>Bonus prompt:</strong> Ask the class what <code>btn btn-danger</code> and <code>mt-4</code> probably mean before advancing.</div>
+                  </section>
+                </div>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Interactive checkpoint #1</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="When Bootstrap Is a Good Choice" data-subtitle="Contexts where it shines." data-time="1 min" data-note="Frame Bootstrap as a strong choice for prototypes, student projects, dashboards, and teams that want consistent UI.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 12 · Fit</p>
+                  <h2>When Bootstrap is a good choice</h2>
+                  <p class="subtitle">Bootstrap works especially well when speed, consistency, and dependable responsiveness matter.</p>
+                </div>
+                <div class="slide-badge">Strong fit</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>Bootstrap is a strong choice when time is short and the project needs a clean, consistent interface fast.</span>
+                </section>
+                <section class="teach-layout thumbs" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="fit-student">Student project</button>
+                    <button class="demo-toggle" type="button" data-switch-target="fit-dashboard">Dashboard</button>
+                    <button class="demo-toggle" type="button" data-switch-target="fit-mvp">MVP / prototype</button>
+                    <p class="try-note">Three examples are enough here. Read the fit score, then the one-sentence reason.</p>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="fit-student">
+                      <span class="label-pill">Strong fit</span>
+                      <div class="fit-score">92 / 100 fit</div>
+                      <h3>Student project</h3>
+                      <p class="fit-note">Bootstrap is great when your team wants a polished result fast and does not have weeks to build custom styles.</p>
+                      <div class="feature-strip"><span>fast setup</span><span>responsive</span><span>good docs</span></div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="fit-dashboard">
+                      <span class="label-pill">Very strong fit</span>
+                      <div class="fit-score">96 / 100 fit</div>
+                      <h3>Admin dashboard</h3>
+                      <p class="fit-note">Dashboards use forms, cards, alerts, and navigation repeatedly, which is exactly where Bootstrap helps most.</p>
+                      <div class="feature-strip"><span>cards</span><span>forms</span><span>alerts</span><span>navbars</span></div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="fit-mvp">
+                      <span class="label-pill">Strong fit</span>
+                      <div class="fit-score">94 / 100 fit</div>
+                      <h3>MVP or prototype</h3>
+                      <p class="fit-note">When your goal is proving the idea quickly, Bootstrap lets you move from blank page to usable interface fast.</p>
+                      <div class="feature-strip"><span>speed</span><span>reliability</span><span>less setup</span></div>
+                    </div>
+                  </div>
+                </section>
+                <section class="callout success">Good fit when speed, consistency, and dependable responsiveness matter more than building a fully custom design system.</section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Prototypes, dashboards, student and team work</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="When Bootstrap May Not Be Best" data-subtitle="Tradeoffs and limitations." data-time="1 min" data-note="Add nuance here. Not the best choice does not mean bad. It means the project goals may need more control than Bootstrap’s defaults provide.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 13 · Tradeoffs</p>
+                  <h2>When Bootstrap may not be the best choice</h2>
+                  <p class="subtitle">Sometimes the speed-versus-customization tradeoff points somewhere else.</p>
+                </div>
+                <div class="slide-badge">Know the limits</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>Bootstrap is less ideal when a project needs a very custom look and the framework’s defaults get in the way.</span>
+                </section>
+                <section class="teach-layout thumbs" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="risk-brand">Brand-heavy site</button>
+                    <button class="demo-toggle" type="button" data-switch-target="risk-design">Custom design system</button>
+                    <button class="demo-toggle" type="button" data-switch-target="risk-tailwind">Utility-first team</button>
+                    <p class="try-note">Keep the contrast simple: great for speed, weaker for highly custom branding.</p>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="risk-brand">
+                      <span class="label-pill">Lower fit</span>
+                      <div class="fit-score">42 / 100 fit</div>
+                      <h3>Brand-heavy marketing page</h3>
+                      <p class="fit-note">If a site needs a very distinctive visual identity, Bootstrap’s defaults may work against that goal unless heavily customized.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="risk-design">
+                      <span class="label-pill">Lower fit</span>
+                      <div class="fit-score">35 / 100 fit</div>
+                      <h3>Custom design system</h3>
+                      <p class="fit-note">Teams building their own design language often want more control than a prebuilt framework gives by default.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="risk-tailwind">
+                      <span class="label-pill">Mixed fit</span>
+                      <div class="fit-score">50 / 100 fit</div>
+                      <h3>Utility-first team preference</h3>
+                      <p class="fit-note">If the team already thinks in Tailwind-style utilities and custom composition, Bootstrap might feel like the wrong workflow.</p>
+                    </div>
+                  </div>
+                </section>
+                <section class="callout">Not the best choice does not mean bad. It means the project goals want a different tradeoff.</section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Speed is a strength, but not every project wants the same tradeoff</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Summary" data-subtitle="The five ideas students should remember." data-time="0.75 min" data-note="Slow down and reinforce the high-level picture. This is the memory slide.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 14 · Summary</p>
+                  <h2>Key takeaways</h2>
+                  <p class="subtitle">If the class remembers these five points, the presentation worked.</p>
+                </div>
+                <div class="slide-badge">Memory slide</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>If you remember only one thing, remember this: Bootstrap helps you build responsive interfaces faster through grid, components, and utilities.</span>
+                </section>
+                <section class="teach-layout horizontal" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="sum-framework">Framework</button>
+                    <button class="demo-toggle" type="button" data-switch-target="sum-grid">Grid</button>
+                    <button class="demo-toggle" type="button" data-switch-target="sum-components">Components</button>
+                    <button class="demo-toggle" type="button" data-switch-target="sum-utilities">Utilities</button>
+                    <button class="demo-toggle" type="button" data-switch-target="sum-tradeoffs">Tradeoffs</button>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="sum-framework">
+                      <span class="label-pill">Main idea</span>
+                      <h3>Bootstrap is a front-end framework for layout and UI.</h3>
+                      <div class="role-card"><strong>Remember this</strong>It gives you structure and common interface patterns so you do not start from a blank slate every time.</div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="sum-grid">
+                      <span class="label-pill">Core skill</span>
+                      <h3>The grid helps pages adapt across screens.</h3>
+                      <div class="mini-layout">
+                        <div class="mini-block primary">col-md-8</div>
+                        <div class="mini-block success">col-md-4</div>
+                      </div>
+                      <p>Containers, rows, and columns are the layout backbone students should really understand.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="sum-components">
+                      <span class="label-pill">Reuse</span>
+                      <h3>Components save time and improve consistency.</h3>
+                      <div class="feature-strip"><span>buttons</span><span>cards</span><span>navbars</span><span>alerts</span><span>forms</span></div>
+                      <p>They help teams build faster without redesigning the same patterns on every page.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="sum-utilities">
+                      <span class="label-pill">Quick changes</span>
+                      <h3>Utility classes make common visual fixes fast.</h3>
+                      <div class="class-badges">
+                        <span class="class-badge">p-4</span>
+                        <span class="class-badge">text-center</span>
+                        <span class="class-badge">d-flex</span>
+                      </div>
+                      <p>That is why Bootstrap feels learnable: the class names often describe exactly what they do.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="sum-tradeoffs">
+                      <span class="label-pill">Decision making</span>
+                      <h3>Bootstrap is helpful, but not always the right tool.</h3>
+                      <div class="memory-grid">
+                        <div class="memory-card"><strong>Great for</strong>Prototypes, dashboards, team projects</div>
+                        <div class="memory-card"><strong>Less ideal for</strong>Very custom brand systems</div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section class="callout primary">Bootstrap helps developers spend less time rebuilding common interface patterns.</section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Grid + components + utilities + tradeoffs</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame backup-slide" data-title="Assessment Questions" data-subtitle="Exam-style questions across Bloom’s taxonomy." data-time="2 min" data-note="Use these to transition from explanation to evaluation. Good answers should define terms, explain tradeoffs, and connect classes to behavior.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 17 · Assessment</p>
+                  <h2>Final-exam-style questions</h2>
+                  <p class="subtitle">These check more than memorization. They move from definitions to application, analysis, evaluation, and creation.</p>
+                </div>
+                <div class="slide-badge">Bloom’s taxonomy</div>
+              </header>
+              <div class="slide-body">
+                <section class="teach-layout" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="q-remember">Remember</button>
+                    <button class="demo-toggle" type="button" data-switch-target="q-understand">Understand</button>
+                    <button class="demo-toggle" type="button" data-switch-target="q-apply">Apply</button>
+                    <button class="demo-toggle" type="button" data-switch-target="q-analyze">Analyze</button>
+                    <button class="demo-toggle" type="button" data-switch-target="q-evaluate">Evaluate</button>
+                    <button class="demo-toggle" type="button" data-switch-target="q-create">Create</button>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="q-remember">
+                      <span class="label-pill">Remember</span>
+                      <h3>Question</h3>
+                      <div class="question-card">What is Bootstrap mainly used for?</div>
+                      <div class="answer-card"><strong>Model answer</strong>Bootstrap is mainly used to build responsive, consistent user interfaces faster.</div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="q-understand">
+                      <span class="label-pill">Understand</span>
+                      <h3>Question</h3>
+                      <div class="question-card">Why is Bootstrap not directly comparable to JavaScript?</div>
+                      <div class="answer-card"><strong>Model answer</strong>Bootstrap is a CSS/UI framework for layout and styling, while JavaScript is a programming language for logic and interactivity.</div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="q-apply">
+                      <span class="label-pill">Apply</span>
+                      <h3>Question</h3>
+                      <div class="question-card">What layout would <code>col-12 col-md-6</code> create?</div>
+                      <div class="answer-card"><strong>Model answer</strong>It creates full-width columns on small screens and half-width columns on medium screens and larger.</div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="q-analyze">
+                      <span class="label-pill">Analyze</span>
+                      <h3>Question</h3>
+                      <div class="question-card">Why might a team choose Bootstrap instead of plain CSS for a dashboard?</div>
+                      <div class="answer-card"><strong>Model answer</strong>Because dashboards reuse cards, alerts, forms, and navigation, so Bootstrap saves time and improves consistency.</div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="q-evaluate">
+                      <span class="label-pill">Evaluate</span>
+                      <h3>Question</h3>
+                      <div class="question-card">Is Bootstrap a good choice for a brand-heavy marketing site? Why or why not?</div>
+                      <div class="answer-card"><strong>Model answer</strong>Not always. It can speed up development, but the defaults may conflict with a highly custom visual identity.</div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="q-create">
+                      <span class="label-pill">Create</span>
+                      <h3>Question</h3>
+                      <div class="question-card">Design a homepage section using one grid layout, one component, and two utility classes.</div>
+                      <div class="answer-card"><strong>Model answer</strong>One valid answer is a `container` with a `card`, plus utilities like `py-5` and `text-center` for spacing and alignment.</div>
+                    </div>
+                  </div>
+                </section>
+                <section class="callout success">These are built as quick click-through prompts, so your team can use them like a guided review without memorizing model answers.</section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Interactive checkpoint #2</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Handout / Cheat Sheet" data-subtitle="A compact Bootstrap quick reference." data-time="0.5 min" data-note="Tell students this is the slide to save or screenshot. Emphasize the three buckets: layout, components, utilities.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 15 · Handout</p>
+                  <h2>Quick-reference cheat sheet</h2>
+                  <p class="subtitle">A compact one-slide summary students can keep after the presentation.</p>
+                </div>
+                <div class="slide-badge">Save this</div>
+              </header>
+              <div class="slide-body">
+                <section class="takeaway-banner">
+                  <strong>Main takeaway</strong>
+                  <span>This final slide is for saving, screenshotting, or using later while building your own Bootstrap pages.</span>
+                </section>
+                <section class="teach-layout horizontal" data-switcher>
+                  <div class="teach-switches">
+                    <button class="demo-toggle active" type="button" data-switch-target="cheat-layout">Layout</button>
+                    <button class="demo-toggle" type="button" data-switch-target="cheat-components">Components</button>
+                    <button class="demo-toggle" type="button" data-switch-target="cheat-utilities">Utilities</button>
+                    <button class="demo-toggle" type="button" data-switch-target="cheat-responsive">Responsive</button>
+                  </div>
+                  <div class="teach-stage">
+                    <div class="teach-pane active" data-switch-pane="cheat-layout">
+                      <span class="label-pill">Layout</span>
+                      <div class="quick-ref-grid">
+                        <div class="memory-card"><strong>container</strong>Wraps and centers content</div>
+                        <div class="memory-card"><strong>row</strong>Creates a horizontal layout section</div>
+                        <div class="memory-card"><strong>col-*</strong>Controls width in the grid</div>
+                        <div class="memory-card"><strong>container-fluid</strong>Uses the full available width</div>
+                      </div>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="cheat-components">
+                      <span class="label-pill">Components</span>
+                      <div class="feature-strip">
+                        <span>btn btn-primary</span>
+                        <span>card</span>
+                        <span>alert alert-success</span>
+                        <span>navbar</span>
+                        <span>form-control</span>
+                      </div>
+                      <p>Think of components as reusable building blocks for common page patterns.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="cheat-utilities">
+                      <span class="label-pill">Utilities</span>
+                      <div class="class-badges">
+                        <span class="class-badge">m-2</span>
+                        <span class="class-badge">mt-4</span>
+                        <span class="class-badge">p-3</span>
+                        <span class="class-badge">text-center</span>
+                        <span class="class-badge">fw-bold</span>
+                        <span class="class-badge">d-flex</span>
+                      </div>
+                      <p>Utilities are the fastest way to make small styling changes without writing custom CSS.</p>
+                    </div>
+                    <div class="teach-pane" data-switch-pane="cheat-responsive">
+                      <span class="label-pill">Responsive</span>
+                      <div class="quick-ref-grid">
+                        <div class="memory-card"><strong>sm</strong>576px+</div>
+                        <div class="memory-card"><strong>md</strong>768px+</div>
+                        <div class="memory-card"><strong>lg</strong>992px+</div>
+                        <div class="memory-card"><strong>xl / xxl</strong>1200px+ / 1400px+</div>
+                      </div>
+                      <p>Memory trick: start small, then add breakpoint classes when the layout should change.</p>
+                    </div>
+                  </div>
+                </section>
+                <section class="callout primary">Memory tip: Bootstrap = <strong>grid + components + utilities</strong>.</section>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Screenshot-friendly summary</div>
+              </footer>
+            </section>
+          </article>
+        </div>
+      </section>
+
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span id="progressLabel">Slide 1 of 18</span>
+          <span id="progressTime">Suggested pace: 20–25 minutes total</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="stage-controls">
+        <div class="nav-cluster">
+          <button class="tool-btn" id="prevBtn" type="button" aria-label="Previous slide">←</button>
+          <button class="tool-btn" id="stageFullscreenBtn" type="button" aria-label="Toggle fullscreen">F</button>
+          <button class="tool-btn primary" id="nextBtn" type="button" aria-label="Next slide">→</button>
+        </div>
+        <div class="keyboard-hint">Keys: ← → Space · N notes · O overview · F fullscreen</div>
+      </div>
+
+      <aside class="notes-panel" id="notesPanel">
+        <header>
+          <div>
+            <h3>Presenter notes</h3>
+            <p id="notesTitle">Slide 1 notes</p>
+          </div>
+          <button class="tool-btn" id="closeNotesBtn" type="button">Hide Notes</button>
+        </header>
+        <div class="notes-content" id="notesContent"></div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide-frame:not(.backup-slide)"));
+    const slideList = document.getElementById("slideList");
+    const toolbarTitle = document.getElementById("toolbarTitle");
+    const toolbarSubtitle = document.getElementById("toolbarSubtitle");
+    const notesTitle = document.getElementById("notesTitle");
+    const notesContent = document.getElementById("notesContent");
+    const progressLabel = document.getElementById("progressLabel");
+    const progressFill = document.getElementById("progressFill");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const startBtn = document.getElementById("startBtn");
+    const notesBtn = document.getElementById("notesBtn");
+    const closeNotesBtn = document.getElementById("closeNotesBtn");
+    const overviewBtn = document.getElementById("overviewBtn");
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
+    const stageFullscreenBtn = document.getElementById("stageFullscreenBtn");
+    const progressTime = document.getElementById("progressTime");
+
+    const gridPreview = document.getElementById("gridPreview");
+    const gridViewportLabel = document.getElementById("gridViewportLabel");
+    const gridViewportMeaning = document.getElementById("gridViewportMeaning");
+    const gridDemoCaption = document.getElementById("gridDemoCaption");
+    const gridDemoControls = document.getElementById("gridDemoControls");
+
+    const utilityDemoCard = document.getElementById("utilityDemoCard");
+    const utilityDemoControls = document.getElementById("utilityDemoControls");
+    const utilityClassBadges = document.getElementById("utilityClassBadges");
+
+    const quizOptions = Array.from(document.querySelectorAll("#quizOptions .quiz-option"));
+    const quizFeedback = document.getElementById("quizFeedback");
+
+    let current = 0;
+
+    const jumpButtons = slides.map((slide, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "slide-jump";
+      button.innerHTML = `
+        <span class="num">Slide ${String(index + 1).padStart(2, "0")}</span>
+        <span class="title">${slide.dataset.title}</span>
+        <span class="time">${slide.dataset.time || ""}</span>
+      `;
+      button.addEventListener("click", () => {
+        document.body.classList.remove("overview");
+        goToSlide(index);
+      });
+      slideList.appendChild(button);
+      return button;
+    });
+
+    function updateSlideState(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+        slide.classList.toggle("prev", i < index);
+      });
+
+      jumpButtons.forEach((button, i) => {
+        button.classList.toggle("active", i === index);
+      });
+
+      const activeSlide = slides[index];
+      if (toolbarTitle) toolbarTitle.textContent = activeSlide.dataset.title;
+      if (toolbarSubtitle) toolbarSubtitle.textContent = activeSlide.dataset.subtitle;
+      if (notesTitle) notesTitle.textContent = `Slide ${index + 1} notes`;
+      if (notesContent) notesContent.innerHTML = activeSlide.dataset.note;
+      progressLabel.textContent = `Slide ${index + 1} of ${slides.length}`;
+      if (progressTime) progressTime.textContent = activeSlide.dataset.time || "";
+      progressFill.style.width = `${((index + 1) / slides.length) * 100}%`;
+
+      if (jumpButtons[index]) {
+        jumpButtons[index].scrollIntoView({
+          block: "nearest",
+          inline: "nearest"
+        });
+      }
+
+      history.replaceState(null, "", `#slide-${index + 1}`);
+    }
+
+    function goToSlide(index) {
+      current = Math.max(0, Math.min(slides.length - 1, index));
+      updateSlideState(current);
+    }
+
+    function nextSlide() {
+      if (current < slides.length - 1) {
+        goToSlide(current + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (current > 0) {
+        goToSlide(current - 1);
+      }
+    }
+
+    function toggleNotes() {
+      document.body.classList.toggle("notes-open");
+    }
+
+    function toggleOverview() {
+      document.body.classList.toggle("overview");
+    }
+
+    async function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    }
+
+    prevBtn.addEventListener("click", prevSlide);
+    nextBtn.addEventListener("click", nextSlide);
+    if (startBtn) startBtn.addEventListener("click", () => goToSlide(0));
+    if (notesBtn) notesBtn.addEventListener("click", toggleNotes);
+    if (closeNotesBtn) closeNotesBtn.addEventListener("click", () => document.body.classList.remove("notes-open"));
+    if (overviewBtn) overviewBtn.addEventListener("click", toggleOverview);
+
+    if (fullscreenBtn) {
+      fullscreenBtn.addEventListener("click", toggleFullscreen);
+    }
+    if (stageFullscreenBtn) {
+      stageFullscreenBtn.addEventListener("click", toggleFullscreen);
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.target.closest("button, input, textarea, select, a, [contenteditable='true']")) return;
+
+      if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
+        event.preventDefault();
+        nextSlide();
+      } else if (event.key === "ArrowLeft" || event.key === "PageUp") {
+        event.preventDefault();
+        prevSlide();
+      } else if (event.key.toLowerCase() === "f") {
+        event.preventDefault();
+        toggleFullscreen();
+      } else if (event.key === "Escape") {
+        document.body.classList.remove("notes-open", "overview");
+      }
+    });
+
+    slides.forEach((slide, index) => {
+      slide.addEventListener("click", () => {
+        if (document.body.classList.contains("overview")) {
+          document.body.classList.remove("overview");
+          goToSlide(index);
+        }
+      });
+    });
+
+    const hashMatch = window.location.hash.match(/slide-(\d+)/);
+    if (hashMatch) {
+      const initial = Number(hashMatch[1]) - 1;
+      if (!Number.isNaN(initial)) {
+        current = Math.max(0, Math.min(slides.length - 1, initial));
+      }
+    }
+
+    document.querySelectorAll("[data-switcher]").forEach((switcher) => {
+      const buttons = Array.from(switcher.querySelectorAll("[data-switch-target]"));
+      const panes = Array.from(switcher.querySelectorAll("[data-switch-pane]"));
+
+      if (!buttons.length || !panes.length) return;
+
+      function activatePane(target) {
+        buttons.forEach((button) => {
+          const active = button.dataset.switchTarget === target;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+
+        panes.forEach((pane) => {
+          pane.classList.toggle("active", pane.dataset.switchPane === target);
+        });
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => activatePane(button.dataset.switchTarget));
+      });
+
+      const defaultButton = buttons.find((button) => button.classList.contains("active")) || buttons[0];
+      activatePane(defaultButton.dataset.switchTarget);
+    });
+
+    if (gridDemoControls && gridPreview) {
+      const gridViews = {
+        phone: {
+          label: "Phone view",
+          meaning: "Columns stack before the `md` breakpoint.",
+          caption: "At phone width, the columns stack vertically because `md` rules have not started yet."
+        },
+        tablet: {
+          label: "Tablet view",
+          meaning: "The `md` breakpoint has started, so the 8/4 split appears.",
+          caption: "At tablet width, Bootstrap applies `col-md-8` and `col-md-4`, creating a content-plus-sidebar layout."
+        },
+        desktop: {
+          label: "Desktop view",
+          meaning: "The same medium-and-up layout still applies on larger screens.",
+          caption: "On desktop, the same responsive rule continues: the main content takes more space, and the sidebar stays smaller."
+        }
+      };
+
+      gridDemoControls.querySelectorAll("[data-grid-view]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const view = button.dataset.gridView;
+          gridDemoControls.querySelectorAll("[data-grid-view]").forEach((item) => {
+            item.classList.toggle("active", item === button);
+          });
+          gridPreview.className = `grid-preview ${view}`;
+          gridViewportLabel.textContent = gridViews[view].label;
+          gridViewportMeaning.textContent = gridViews[view].meaning;
+          gridDemoCaption.textContent = gridViews[view].caption;
+        });
+      });
+    }
+
+    if (utilityDemoControls && utilityDemoCard && utilityClassBadges) {
+      const activeUtilities = new Set(["space"]);
+      const utilityMap = {
+        space: "p-4",
+        dark: "bg-dark text-white",
+        center: "text-center",
+        bold: "fw-bold"
+      };
+
+      function renderUtilityDemo() {
+        utilityDemoCard.classList.toggle("space", activeUtilities.has("space"));
+        utilityDemoCard.classList.toggle("dark", activeUtilities.has("dark"));
+        utilityDemoCard.classList.toggle("center", activeUtilities.has("center"));
+        utilityDemoCard.classList.toggle("bold", activeUtilities.has("bold"));
+
+        utilityClassBadges.innerHTML = "";
+        Array.from(activeUtilities).sort().forEach((key) => {
+          const badge = document.createElement("span");
+          badge.className = "class-badge";
+          badge.textContent = utilityMap[key];
+          utilityClassBadges.appendChild(badge);
+        });
+      }
+
+      utilityDemoControls.querySelectorAll("[data-utility]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const utility = button.dataset.utility;
+          if (activeUtilities.has(utility)) {
+            activeUtilities.delete(utility);
+            button.classList.remove("active");
+          } else {
+            activeUtilities.add(utility);
+            button.classList.add("active");
+          }
+          renderUtilityDemo();
+        });
+      });
+
+      renderUtilityDemo();
+    }
+
+    if (quizOptions.length && quizFeedback) {
+      const feedbackMap = {
+        correct: "Correct. `col-12` makes each box full-width on small screens, and `col-md-6` changes each one to half-width once the medium breakpoint begins.",
+        wrong: "Not quite. Look for the breakpoint part: `col-md-6` only starts at medium screens, while `col-12` controls the smaller layout."
+      };
+
+      quizOptions.forEach((option) => {
+        option.addEventListener("click", () => {
+          quizOptions.forEach((button) => {
+            button.classList.remove("correct", "wrong");
+          });
+          const result = option.dataset.result;
+          option.classList.add(result === "correct" ? "correct" : "wrong");
+          quizFeedback.textContent = feedbackMap[result];
+        });
+      });
+    }
+
+    updateSlideState(current);
+  </script>
+</body>
+</html>

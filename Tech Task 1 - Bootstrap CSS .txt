@@ -1,0 +1,96 @@
+Bootstrap CSS
+Team Marcia
+
+Contents
+5.
+Features of Bootstrap
+4.
+Evolution of Bootstrap
+3.
+History of Bootstrap
+2.
+Introduction
+1.
+Kahoot!
+6.
+Applications
+
+Introduction
+
+
+
+CSS framework for building responsive websites
+Mobile-first design
+Prebuilt components
+Used by many modern websites
+
+
+
+When? 
+
+Where?
+Who?
+Purpose
+Release
+2011
+History of Bootstrap 
+Mark Otto
+Jacob Thornton
+Initially used internally
+Twitter (X)
+Released as open source
+
+Bootstrap 1 (2011)
+First release
+Bootstrap 2 (2012)
+Better components
+Bootstrap 3 (2013)
+Mobile first design
+Bootstrap 4 (2018)
+Flexbox layout
+Bootstrap 5 (2021)
+No jQuery dependency
+
+
+
+
+Evolution of Bootstrap
+
+Features *Give some examples
+Talk about the framework, maybe reference the bootstrap website
+
+Syntax, components …
+
+
+Social Media App
+Cards are perfect for displaying individual posts/tweets — profile picture, username, post content
+Navbar component gives you the top navigation bar with logo, search bar, and profile icon
+E-Commerce Product Page
+Badge components can show "Sale" or "New" tags on products instantly
+
+Applications
+Responsive Web Design
+UI Component Library
+Mobile-First Projects
+Interactive Content
+E-commerce Sites
+
+
+
+btn — the base class that styles it as a Bootstrap button
+
+btn-primary, btn-danger, btn-success, etc. — these just swap the color, no extra CSS needed
+
+m-1 — a utility class adding a small margin around each button
+
+This HTML page is styled only using class names!
+
+Famous Sites built with Bootstrap:
+
+Practice Questions
+*Kahoot
+
+Any questions? 
+Ask away!
+
+Thank you
