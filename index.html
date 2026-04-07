@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Presentation</title>
+  <meta http-equiv="refresh" content="0; url=./bootstrap_deck.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: linear-gradient(135deg, #eef5ff 0%, #f8fbff 45%, #e7f0ff 100%);
+      --panel: rgba(255, 255, 255, 0.88);
+      --border: rgba(13, 110, 253, 0.15);
+      --text: #17324d;
+      --muted: #58708a;
+      --primary: #0d6efd;
+      --primary-dark: #0b5ed7;
+      --shadow: 0 22px 50px rgba(13, 54, 110, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .panel {
+      width: min(720px, 100%);
+      padding: 36px;
+      border-radius: 28px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(13, 110, 253, 0.08);
+    }
+
+    h1 {
+      margin: 18px 0 10px;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      line-height: 1.05;
+    }
+
+    p {
+      margin: 0 auto;
+      max-width: 56ch;
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .button.primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      box-shadow: 0 12px 28px rgba(13, 110, 253, 0.28);
+    }
+
+    .button.secondary {
+      color: var(--primary);
+      background: rgba(13, 110, 253, 0.08);
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .helper {
+      margin-top: 18px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+  </style>
+  <script>
+    window.location.replace("./bootstrap_deck.html");
+  </script>
+</head>
+<body>
+  <main class="panel">
+    <div class="eyebrow">Bootstrap Presentation</div>
+    <h1>Opening the slide deck...</h1>
+    <p>
+      If the presentation does not open automatically, use the links below to view the
+      audience deck or the quick reference handout.
+    </p>
+    <div class="actions">
+      <a class="button primary" href="./bootstrap_deck.html">Open Slides</a>
+      <a class="button secondary" href="./bootstrap_cheatsheet.md">Open Cheat Sheet</a>
+    </div>
+    <div class="helper">GitHub Pages needs an <code>index.html</code> at the site root for clean URLs.</div>
+  </main>
+</body>
+</html>
