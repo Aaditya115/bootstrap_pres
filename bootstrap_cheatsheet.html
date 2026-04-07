@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap One-Page Cheat Sheet</title>
+  <style>
+    :root {
+      --blue: #0d6efd;
+      --blue-deep: #0a58ca;
+      --ink: #18324b;
+      --muted: #5b7088;
+      --line: #d9e6f5;
+      --panel: #f7fbff;
+      --panel-strong: #eef5ff;
+      --success: #198754;
+      --warning: #ffc107;
+      --dark: #212529;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --sans: "Segoe UI", "Aptos", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    @page {
+      size: letter portrait;
+      margin: 0.42in;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    body {
+      padding: 0.32in;
+    }
+
+    .sheet {
+      width: 100%;
+      max-width: 8.5in;
+      margin: 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(24, 50, 75, 0.08);
+      background: #fff;
+    }
+
+    .hero {
+      padding: 18px 22px 16px;
+      background:
+        radial-gradient(circle at top right, rgba(13, 110, 253, 0.14), transparent 28%),
+        linear-gradient(135deg, #edf5ff 0%, #f8fbff 62%, #eff6ff 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(13, 110, 253, 0.1);
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 10px 0 6px;
+      font-size: 28px;
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .summary-box {
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.84);
+      font-size: 12px;
+    }
+
+    .summary-box strong {
+      display: block;
+      color: var(--blue-deep);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1.18fr 0.94fr 0.88fr;
+      gap: 0;
+    }
+
+    .column {
+      padding: 16px 16px 14px;
+      border-right: 1px solid var(--line);
+    }
+
+    .column:last-child {
+      border-right: 0;
+    }
+
+    .section + .section {
+      margin-top: 14px;
+    }
+
+    .section h2 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--blue-deep);
+    }
+
+    .section p,
+    .section li {
+      font-size: 12px;
+      line-height: 1.42;
+      color: var(--ink);
+    }
+
+    .section p {
+      margin: 0;
+    }
+
+    ul {
+      margin: 8px 0 0 16px;
+      padding: 0;
+    }
+
+    li + li {
+      margin-top: 4px;
+    }
+
+    code,
+    pre {
+      font-family: var(--mono);
+    }
+
+    .code-block {
+      margin-top: 8px;
+      padding: 10px 11px;
+      background: var(--dark);
+      color: #f8f9fa;
+      border-radius: 12px;
+      font-size: 11px;
+      line-height: 1.42;
+      overflow: hidden;
+      white-space: pre-wrap;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .breakpoint-grid,
+    .mini-grid {
+      display: grid;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .breakpoint-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mini-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .mini-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 8px 9px;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .mini-card strong {
+      display: block;
+      color: var(--blue-deep);
+      margin-bottom: 2px;
+    }
+
+    .flow-card {
+      margin-top: 8px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .flow-step {
+      padding: 8px 10px;
+      font-size: 11px;
+      line-height: 1.35;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .flow-step:last-child {
+      border-bottom: 0;
+    }
+
+    .flow-step strong {
+      color: var(--blue-deep);
+    }
+
+    .compare {
+      display: grid;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .compare-box {
+      border-radius: 12px;
+      padding: 8px 9px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .compare-box strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .compare-box.bootstrap strong {
+      color: var(--blue-deep);
+    }
+
+    .compare-box.css strong {
+      color: var(--success);
+    }
+
+    .compare-box.js strong {
+      color: #8a6d00;
+    }
+
+    .highlight {
+      margin-top: 8px;
+      padding: 9px 10px;
+      border-left: 4px solid var(--blue);
+      background: var(--panel-strong);
+      border-radius: 10px;
+      font-size: 11px;
+      line-height: 1.38;
+    }
+
+    .do-dont {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .do,
+    .dont {
+      border-radius: 12px;
+      padding: 9px 10px;
+      font-size: 11px;
+      line-height: 1.38;
+      border: 1px solid var(--line);
+    }
+
+    .do {
+      background: rgba(25, 135, 84, 0.08);
+    }
+
+    .dont {
+      background: rgba(255, 193, 7, 0.12);
+    }
+
+    .do strong {
+      color: var(--success);
+    }
+
+    .dont strong {
+      color: #946200;
+    }
+
+    .footer {
+      padding: 10px 16px 12px;
+      border-top: 1px solid var(--line);
+      background: #fbfdff;
+      font-size: 10.5px;
+      line-height: 1.35;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media screen and (max-width: 980px) {
+      body {
+        padding: 14px;
+        background: #f5f9ff;
+      }
+
+      .sheet {
+        border-radius: 16px;
+      }
+
+      .summary-strip,
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .column {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .column:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    @media print {
+      body {
+        padding: 0;
+      }
+
+      .sheet {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        max-width: none;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <section class="hero">
+      <div class="eyebrow">Class Handout</div>
+      <h1>Bootstrap One-Page Cheat Sheet</h1>
+      <p class="subtitle">
+        A fast reference for what Bootstrap is, how its grid works, which classes matter most,
+        and when to use it in real projects.
+      </p>
+      <div class="summary-strip">
+        <div class="summary-box">
+          <strong>What it is</strong>
+          Front-end framework for responsive layout and UI.
+        </div>
+        <div class="summary-box">
+          <strong>Main pieces</strong>
+          Grid, components, utilities, breakpoints.
+        </div>
+        <div class="summary-box">
+          <strong>Best for</strong>
+          Student projects, prototypes, dashboards, MVPs.
+        </div>
+        <div class="summary-box">
+          <strong>Remember</strong>
+          Bootstrap speeds up styling, but custom CSS is still allowed.
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="column">
+        <section class="section">
+          <h2>1. Core Idea</h2>
+          <p>
+            Bootstrap gives you a ready-made system for building pages faster. Instead of styling
+            everything from scratch, you use built-in patterns.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Grid</span>
+            <span class="pill">Components</span>
+            <span class="pill">Utilities</span>
+            <span class="pill">Responsive Design</span>
+          </div>
+          <div class="highlight">
+            Memory formula: <strong>Bootstrap = grid + components + utilities</strong>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>2. Layout: Container, Row, Column</h2>
+          <div class="code-block">&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-12 col-md-8"&gt;Main&lt;/div&gt;
+    &lt;div class="col-12 col-md-4"&gt;Sidebar&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+          <ul>
+            <li><code>container</code>: centers and pads page content</li>
+            <li><code>row</code>: creates a horizontal grid row</li>
+            <li><code>col-*</code>: defines responsive column width</li>
+            <li><code>col-12</code>: full width on small screens</li>
+            <li><code>col-md-8</code>: 8/12 width from medium screens and up</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>3. Breakpoints</h2>
+          <div class="breakpoint-grid">
+            <div class="mini-card"><strong>sm</strong>576px+</div>
+            <div class="mini-card"><strong>md</strong>768px+</div>
+            <div class="mini-card"><strong>lg</strong>992px+</div>
+            <div class="mini-card"><strong>xl</strong>1200px+</div>
+            <div class="mini-card"><strong>xxl</strong>1400px+</div>
+            <div class="mini-card"><strong>Rule</strong>Mobile-first by default</div>
+          </div>
+          <div class="highlight">
+            Start small, then add classes like <code>col-md-6</code> or <code>d-lg-none</code> for larger screens.
+          </div>
+        </section>
+      </div>
+
+      <div class="column">
+        <section class="section">
+          <h2>4. Common Components</h2>
+          <div class="mini-grid">
+            <div class="mini-card"><strong>Buttons</strong><code>btn btn-primary</code></div>
+            <div class="mini-card"><strong>Cards</strong><code>card</code></div>
+            <div class="mini-card"><strong>Alerts</strong><code>alert alert-warning</code></div>
+            <div class="mini-card"><strong>Navbar</strong><code>navbar navbar-expand-lg</code></div>
+            <div class="mini-card"><strong>Forms</strong><code>form-control</code></div>
+            <div class="mini-card"><strong>JS UI</strong>modal, dropdown, collapse</div>
+          </div>
+          <div class="highlight">
+            Components save time because they give you tested, reusable UI patterns. Some interactive ones also use Bootstrap JavaScript.
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>5. Utility Classes</h2>
+          <div class="mini-grid">
+            <div class="mini-card"><strong>Spacing</strong><code>m-2 mt-4 p-3 px-4</code></div>
+            <div class="mini-card"><strong>Text</strong><code>text-center fw-bold</code></div>
+            <div class="mini-card"><strong>Color</strong><code>bg-primary text-white</code></div>
+            <div class="mini-card"><strong>Flex</strong><code>d-flex justify-content-between</code></div>
+            <div class="mini-card"><strong>Display</strong><code>d-none d-md-block</code></div>
+            <div class="mini-card"><strong>Extras</strong><code>rounded shadow-sm w-100</code></div>
+          </div>
+          <div class="code-block">&lt;div class="p-3 bg-light rounded text-center"&gt;
+  &lt;h2 class="text-primary fw-bold"&gt;Welcome&lt;/h2&gt;
+&lt;/div&gt;</div>
+        </section>
+
+        <section class="section">
+          <h2>6. Bootstrap vs CSS vs JavaScript</h2>
+          <div class="compare">
+            <div class="compare-box bootstrap">
+              <strong>Bootstrap</strong>
+              Styling system and UI toolkit for layout, components, and responsiveness.
+            </div>
+            <div class="compare-box css">
+              <strong>Plain CSS</strong>
+              You write the design system yourself for maximum control.
+            </div>
+            <div class="compare-box js">
+              <strong>JavaScript</strong>
+              Programming language for logic and interactivity, not a styling framework.
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>7. Getting Started</h2>
+          <div class="code-block">&lt;link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+&gt;</div>
+          <ul>
+            <li>Add Bootstrap CSS first.</li>
+            <li>Use Bootstrap classes in regular HTML.</li>
+            <li>Add Bootstrap JavaScript only for interactive components when needed.</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="column">
+        <section class="section">
+          <h2>8. Best Workflow</h2>
+          <div class="flow-card">
+            <div class="flow-step"><strong>1.</strong> Start with page structure using <code>container</code>, <code>row</code>, and <code>col-*</code>.</div>
+            <div class="flow-step"><strong>2.</strong> Add components like buttons, cards, navbars, and form controls.</div>
+            <div class="flow-step"><strong>3.</strong> Use utility classes for spacing, alignment, colors, and display.</div>
+            <div class="flow-step"><strong>4.</strong> Add custom CSS only when Bootstrap defaults are not enough.</div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>9. Good Choice When...</h2>
+          <div class="do-dont">
+            <div class="do">
+              <strong>Use Bootstrap for:</strong><br>
+              student projects, dashboards, prototypes, MVPs, and teams that need a consistent UI quickly.
+            </div>
+            <div class="dont">
+              <strong>Less ideal for:</strong><br>
+              highly custom brand-heavy designs or projects that require a unique design system.
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>10. Important Concepts</h2>
+          <ul>
+            <li>You still write HTML when using Bootstrap.</li>
+            <li>Bootstrap reduces CSS work, but does not remove the need for design decisions.</li>
+            <li>Responsive behavior is one of Bootstrap’s biggest strengths.</li>
+            <li>Bootstrap is mostly CSS, with optional JavaScript for selected interactive components.</li>
+            <li>Too many utility classes can make HTML harder to read, so use them thoughtfully.</li>
+          </ul>
+        </section>
+
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Printable one-page Bootstrap handout for class presentation</span>
+      <span>Tip: open in browser, then print with “Background graphics” enabled for best result</span>
+    </footer>
+  </main>
+</body>
+</html>

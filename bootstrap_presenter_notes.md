@@ -98,6 +98,12 @@ This document is the presenter-only companion to [bootstrap_deck.html](/Users/aa
 - Reinforce the main memory hook:
   Bootstrap = grid + components + utilities
 - Click through `Layout`, `Components`, `Utilities`, and `Responsive` only if the class wants a recap.
+- End by pointing to the QR code so the audience can open the printable handout later.
+
+## Slide 16. Kahoot
+- Leave this slide on screen while the class joins.
+- Tell students they can scan the QR code or type the link manually.
+- Keep the transition short and upbeat so the energy carries into the quiz.
 
 ## Delivery tips
 - Aim for about 45–75 seconds on most slides.

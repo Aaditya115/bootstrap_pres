@@ -1639,6 +1639,60 @@
       gap: 12px;
     }
 
+    .cheat-sheet-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) 290px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .qr-panel {
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #ffffff, #f6faff);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: var(--shadow-lg);
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .qr-panel h3,
+    .qr-panel p {
+      margin: 0;
+    }
+
+    .qr-code-frame {
+      width: 220px;
+      height: 220px;
+      padding: 12px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      display: grid;
+      place-items: center;
+    }
+
+    .qr-code-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .qr-link {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(13, 110, 253, 0.08);
+      color: var(--primary-deep);
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      line-height: 1.45;
+      word-break: break-all;
+    }
+
     .alert-demo {
       padding: 12px 14px;
       border-radius: 16px;
@@ -1972,8 +2026,14 @@
       .responsive-cards.three,
       .comparison-split,
       .memory-grid,
-      .quick-ref-grid {
+      .quick-ref-grid,
+      .cheat-sheet-wrap {
         grid-template-columns: 1fr;
+      }
+
+      .qr-panel {
+        justify-items: start;
+        text-align: left;
       }
 
       .slide-head,
@@ -2222,7 +2282,7 @@
                 <div>
                   <p class="eyebrow">Slide 03 · Definition</p>
                   <h2>What is Bootstrap?</h2>
-                  <p class="subtitle">A front-end CSS framework with a responsive grid, prebuilt components, utility classes, and a few optional interactive features.</p>
+                  <p class="subtitle">A front-end CSS framework with a grid system, ready-made components, and utility classes.</p>
                 </div>
                 <div class="slide-badge">Toolkit</div>
               </header>
@@ -2237,7 +2297,6 @@
                     <button class="demo-toggle" type="button" data-switch-target="what-components">Components</button>
                     <button class="demo-toggle" type="button" data-switch-target="what-utilities">Utilities</button>
                     <button class="demo-toggle" type="button" data-switch-target="what-js">JS extras</button>
-                    <p class="try-note">Click each part of Bootstrap. The preview on the right gives you the classroom-friendly explanation.</p>
                   </div>
                   <div class="teach-stage">
                     <div class="teach-pane active" data-switch-pane="what-layout">
@@ -2281,7 +2340,7 @@
                         <span class="class-badge">text-center</span>
                         <span class="class-badge">fw-bold</span>
                       </div>
-                      <p>That is why Bootstrap is fast to learn: common visual changes follow naming patterns instead of custom CSS every time.</p>
+                      <p>Common changes like spacing, alignment, and emphasis are already built in.</p>
                     </div>
                     <div class="teach-pane" data-switch-pane="what-js">
                       <span class="label-pill">Optional interactivity</span>
@@ -2328,7 +2387,6 @@
                     <button class="demo-toggle" type="button" data-switch-target="why-responsive">Responsive</button>
                     <button class="demo-toggle" type="button" data-switch-target="why-reusable">Reusable</button>
                     <button class="demo-toggle" type="button" data-switch-target="why-team">Team-friendly</button>
-                    <p class="try-note">Use these buttons as your speaking order. Each one gives you a concrete example to point at.</p>
                   </div>
                   <div class="teach-stage">
                     <div class="teach-pane active" data-switch-pane="why-speed">
@@ -2400,7 +2458,6 @@
                     <button class="demo-toggle active" type="button" data-switch-target="tool-bootstrap">Bootstrap</button>
                     <button class="demo-toggle" type="button" data-switch-target="tool-css">CSS</button>
                     <button class="demo-toggle" type="button" data-switch-target="tool-js">JavaScript</button>
-                    <p class="try-note">If your team gets stuck, click each button and read the “best for” line aloud.</p>
                   </div>
                   <div class="teach-stage">
                     <div class="teach-pane active" data-switch-pane="tool-bootstrap">
@@ -2472,7 +2529,6 @@
                     <button class="demo-toggle active" type="button" data-switch-target="compare-css">Plain CSS</button>
                     <button class="demo-toggle" type="button" data-switch-target="compare-bootstrap">Bootstrap</button>
                     <button class="demo-toggle" type="button" data-switch-target="compare-tailwind">Tailwind</button>
-                    <p class="try-note">Three choices are enough here. Mention Bulma and Foundation only as other frameworks that exist.</p>
                   </div>
                   <div class="teach-stage">
                     <div class="teach-pane active" data-switch-pane="compare-css">
@@ -2591,7 +2647,6 @@
                     <button class="demo-toggle" type="button" data-switch-target="component-card">Card</button>
                     <button class="demo-toggle" type="button" data-switch-target="component-navbar">Navbar</button>
                     <button class="demo-toggle" type="button" data-switch-target="component-form">Form</button>
-                    <p class="try-note">Four components are enough for a live presentation. Mention alerts and modals aloud if needed.</p>
                   </div>
                   <div class="teach-stage">
                     <div class="teach-pane active" data-switch-pane="component-button">
@@ -2884,7 +2939,6 @@
                     <button class="demo-toggle active" type="button" data-switch-target="demo-plain">Plain HTML</button>
                     <button class="demo-toggle" type="button" data-switch-target="demo-bootstrap">Bootstrap version</button>
                     <button class="demo-toggle" type="button" data-switch-target="demo-takeaway">What changed?</button>
-                    <p class="try-note">This is a presenter-friendly demo slide: click from plain to Bootstrap and narrate the visual difference.</p>
                   </div>
                   <div class="teach-stage">
                     <div class="teach-pane active" data-switch-pane="demo-plain">
@@ -2997,7 +3051,6 @@
                     <button class="demo-toggle active" type="button" data-switch-target="fit-student">Student project</button>
                     <button class="demo-toggle" type="button" data-switch-target="fit-dashboard">Dashboard</button>
                     <button class="demo-toggle" type="button" data-switch-target="fit-mvp">MVP / prototype</button>
-                    <p class="try-note">Three examples are enough here. Read the fit score, then the one-sentence reason.</p>
                   </div>
                   <div class="teach-stage">
                     <div class="teach-pane active" data-switch-pane="fit-student">
@@ -3051,7 +3104,6 @@
                     <button class="demo-toggle active" type="button" data-switch-target="risk-brand">Brand-heavy site</button>
                     <button class="demo-toggle" type="button" data-switch-target="risk-design">Custom design system</button>
                     <button class="demo-toggle" type="button" data-switch-target="risk-tailwind">Utility-first team</button>
-                    <p class="try-note">Keep the contrast simple: great for speed, weaker for highly custom branding.</p>
                   </div>
                   <div class="teach-stage">
                     <div class="teach-pane active" data-switch-pane="risk-brand">
@@ -3227,32 +3279,29 @@
                 <div>
                   <p class="eyebrow">Slide 15 · Handout</p>
                   <h2>Quick-reference cheat sheet</h2>
-                  <p class="subtitle">A compact one-slide summary students can keep after the presentation.</p>
+                  <p class="subtitle">Quick recap + link to the printable handout.</p>
                 </div>
-                <div class="slide-badge">Save this</div>
+                <div class="slide-badge">Cheat sheet</div>
               </header>
               <div class="slide-body">
-                <section class="takeaway-banner">
-                  <strong>Main takeaway</strong>
-                  <span>This final slide is for saving, screenshotting, or using later while building your own Bootstrap pages.</span>
-                </section>
-                <section class="teach-layout horizontal" data-switcher>
-                  <div class="teach-switches">
-                    <button class="demo-toggle active" type="button" data-switch-target="cheat-layout">Layout</button>
-                    <button class="demo-toggle" type="button" data-switch-target="cheat-components">Components</button>
-                    <button class="demo-toggle" type="button" data-switch-target="cheat-utilities">Utilities</button>
-                    <button class="demo-toggle" type="button" data-switch-target="cheat-responsive">Responsive</button>
-                  </div>
-                  <div class="teach-stage">
-                    <div class="teach-pane active" data-switch-pane="cheat-layout">
-                      <span class="label-pill">Layout</span>
-                      <div class="quick-ref-grid">
-                        <div class="memory-card"><strong>container</strong>Wraps and centers content</div>
-                        <div class="memory-card"><strong>row</strong>Creates a horizontal layout section</div>
-                        <div class="memory-card"><strong>col-*</strong>Controls width in the grid</div>
-                        <div class="memory-card"><strong>container-fluid</strong>Uses the full available width</div>
-                      </div>
+                <div class="cheat-sheet-wrap">
+                  <section class="teach-layout horizontal" data-switcher>
+                    <div class="teach-switches">
+                      <button class="demo-toggle active" type="button" data-switch-target="cheat-layout">Layout</button>
+                      <button class="demo-toggle" type="button" data-switch-target="cheat-components">Components</button>
+                      <button class="demo-toggle" type="button" data-switch-target="cheat-utilities">Utilities</button>
+                      <button class="demo-toggle" type="button" data-switch-target="cheat-responsive">Responsive</button>
                     </div>
+                    <div class="teach-stage">
+                      <div class="teach-pane active" data-switch-pane="cheat-layout">
+                        <span class="label-pill">Layout</span>
+                        <div class="quick-ref-grid">
+                          <div class="memory-card"><strong>container</strong>Wraps and centers content</div>
+                          <div class="memory-card"><strong>row</strong>Creates a horizontal layout section</div>
+                          <div class="memory-card"><strong>col-*</strong>Controls width in the grid</div>
+                          <div class="memory-card"><strong>container-fluid</strong>Uses the full available width</div>
+                        </div>
+                      </div>
                     <div class="teach-pane" data-switch-pane="cheat-components">
                       <span class="label-pill">Components</span>
                       <div class="feature-strip">
@@ -3262,36 +3311,82 @@
                         <span>navbar</span>
                         <span>form-control</span>
                       </div>
-                      <p>Think of components as reusable building blocks for common page patterns.</p>
+                      <p>Reusable pieces like buttons, cards, navbars, and forms save a lot of setup time.</p>
                     </div>
-                    <div class="teach-pane" data-switch-pane="cheat-utilities">
-                      <span class="label-pill">Utilities</span>
-                      <div class="class-badges">
-                        <span class="class-badge">m-2</span>
-                        <span class="class-badge">mt-4</span>
-                        <span class="class-badge">p-3</span>
-                        <span class="class-badge">text-center</span>
-                        <span class="class-badge">fw-bold</span>
-                        <span class="class-badge">d-flex</span>
+                      <div class="teach-pane" data-switch-pane="cheat-utilities">
+                        <span class="label-pill">Utilities</span>
+                        <div class="class-badges">
+                          <span class="class-badge">m-2</span>
+                          <span class="class-badge">mt-4</span>
+                          <span class="class-badge">p-3</span>
+                          <span class="class-badge">text-center</span>
+                          <span class="class-badge">fw-bold</span>
+                          <span class="class-badge">d-flex</span>
+                        </div>
+                        <p>Utilities are the fastest way to make small styling changes without writing custom CSS.</p>
                       </div>
-                      <p>Utilities are the fastest way to make small styling changes without writing custom CSS.</p>
-                    </div>
-                    <div class="teach-pane" data-switch-pane="cheat-responsive">
-                      <span class="label-pill">Responsive</span>
-                      <div class="quick-ref-grid">
-                        <div class="memory-card"><strong>sm</strong>576px+</div>
-                        <div class="memory-card"><strong>md</strong>768px+</div>
-                        <div class="memory-card"><strong>lg</strong>992px+</div>
-                        <div class="memory-card"><strong>xl / xxl</strong>1200px+ / 1400px+</div>
+                      <div class="teach-pane" data-switch-pane="cheat-responsive">
+                        <span class="label-pill">Responsive</span>
+                        <div class="quick-ref-grid">
+                          <div class="memory-card"><strong>sm</strong>576px+</div>
+                          <div class="memory-card"><strong>md</strong>768px+</div>
+                          <div class="memory-card"><strong>lg</strong>992px+</div>
+                          <div class="memory-card"><strong>xl / xxl</strong>1200px+ / 1400px+</div>
+                        </div>
+                        <p>Start with the mobile layout, then add wider-screen classes when needed.</p>
                       </div>
-                      <p>Memory trick: start small, then add breakpoint classes when the layout should change.</p>
                     </div>
-                  </div>
-                </section>
-                <section class="callout primary">Memory tip: Bootstrap = <strong>grid + components + utilities</strong>.</section>
+                  </section>
+                  <aside class="qr-panel">
+                    <span class="label-pill">Cheat sheet</span>
+                    <h3>Printable handout</h3>
+                    <div class="qr-code-frame">
+                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&amp;data=https%3A%2F%2Faaditya115.github.io%2Fbootstrap_pres%2Fbootstrap_cheatsheet.html" alt="QR code linking to the Bootstrap cheat sheet">
+                    </div>
+                    <p>Scan to open the one-page handout.</p>
+                    <div class="qr-link">aaditya115.github.io/bootstrap_pres/bootstrap_cheatsheet.html</div>
+                  </aside>
+                </div>
+                <section class="callout primary">Core ideas: <strong>grid, components, utilities, responsive breakpoints, and optional JS features like modals and dropdowns</strong>.</section>
               </div>
               <footer class="slide-foot">
                 <div class="foot-tag"><span class="dot"></span> Screenshot-friendly summary</div>
+              </footer>
+            </section>
+          </article>
+
+          <article class="slide-frame" data-title="Kahoot Time" data-subtitle="Join the Bootstrap review quiz." data-time="0.5 min" data-note="Use this slide to transition from the presentation into the Kahoot. Tell the audience they can scan the QR code or type the link manually if needed.">
+            <section class="slide-card">
+              <header class="slide-head">
+                <div>
+                  <p class="eyebrow">Slide 16 · Kahoot</p>
+                  <h2>Kahoot</h2>
+                  <p class="subtitle">Join the quiz.</p>
+                </div>
+                <div class="slide-badge">Quiz</div>
+              </header>
+              <div class="slide-body">
+                <div class="cheat-sheet-wrap">
+                  <section class="stack">
+                    <div class="question-card">
+                      <span class="label-pill">Next up</span>
+                      <h3>Bootstrap review</h3>
+                      <p>Same concepts, just faster.</p>
+                    </div>
+                    <section class="callout primary"><strong>https://create.kahoot.it/share/bootstrap/f0abf220-c07a-41c5-8679-b76607154249</strong></section>
+                  </section>
+                  <aside class="qr-panel">
+                    <span class="label-pill">Kahoot</span>
+                    <h3>Scan to join</h3>
+                    <div class="qr-code-frame">
+                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&amp;data=https%3A%2F%2Fcreate.kahoot.it%2Fshare%2Fbootstrap%2Ff0abf220-c07a-41c5-8679-b76607154249" alt="QR code linking to the Bootstrap Kahoot">
+                    </div>
+                    <div class="qr-link">https://create.kahoot.it/share/bootstrap/f0abf220-c07a-41c5-8679-b76607154249</div>
+                  </aside>
+                </div>
+              </div>
+              <footer class="slide-foot">
+                <div class="foot-tag"><span class="dot"></span> Final transition slide</div>
               </footer>
             </section>
           </article>
@@ -3301,7 +3396,6 @@
       <div class="progress-wrap">
         <div class="progress-meta">
           <span id="progressLabel">Slide 1 of 18</span>
-          <span id="progressTime">Suggested pace: 20–25 minutes total</span>
         </div>
         <div class="progress-bar">
           <div class="progress-fill" id="progressFill"></div>
@@ -3314,19 +3408,7 @@
           <button class="tool-btn" id="stageFullscreenBtn" type="button" aria-label="Toggle fullscreen">F</button>
           <button class="tool-btn primary" id="nextBtn" type="button" aria-label="Next slide">→</button>
         </div>
-        <div class="keyboard-hint">Keys: ← → Space · N notes · O overview · F fullscreen</div>
       </div>
-
-      <aside class="notes-panel" id="notesPanel">
-        <header>
-          <div>
-            <h3>Presenter notes</h3>
-            <p id="notesTitle">Slide 1 notes</p>
-          </div>
-          <button class="tool-btn" id="closeNotesBtn" type="button">Hide Notes</button>
-        </header>
-        <div class="notes-content" id="notesContent"></div>
-      </aside>
     </main>
   </div>
 
@@ -3335,19 +3417,13 @@
     const slideList = document.getElementById("slideList");
     const toolbarTitle = document.getElementById("toolbarTitle");
     const toolbarSubtitle = document.getElementById("toolbarSubtitle");
-    const notesTitle = document.getElementById("notesTitle");
-    const notesContent = document.getElementById("notesContent");
     const progressLabel = document.getElementById("progressLabel");
     const progressFill = document.getElementById("progressFill");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
     const startBtn = document.getElementById("startBtn");
-    const notesBtn = document.getElementById("notesBtn");
-    const closeNotesBtn = document.getElementById("closeNotesBtn");
-    const overviewBtn = document.getElementById("overviewBtn");
     const fullscreenBtn = document.getElementById("fullscreenBtn");
     const stageFullscreenBtn = document.getElementById("stageFullscreenBtn");
-    const progressTime = document.getElementById("progressTime");
 
     const gridPreview = document.getElementById("gridPreview");
     const gridViewportLabel = document.getElementById("gridViewportLabel");
@@ -3374,7 +3450,6 @@
         <span class="time">${slide.dataset.time || ""}</span>
       `;
       button.addEventListener("click", () => {
-        document.body.classList.remove("overview");
         goToSlide(index);
       });
       slideList.appendChild(button);
@@ -3394,10 +3469,7 @@
       const activeSlide = slides[index];
       if (toolbarTitle) toolbarTitle.textContent = activeSlide.dataset.title;
       if (toolbarSubtitle) toolbarSubtitle.textContent = activeSlide.dataset.subtitle;
-      if (notesTitle) notesTitle.textContent = `Slide ${index + 1} notes`;
-      if (notesContent) notesContent.innerHTML = activeSlide.dataset.note;
       progressLabel.textContent = `Slide ${index + 1} of ${slides.length}`;
-      if (progressTime) progressTime.textContent = activeSlide.dataset.time || "";
       progressFill.style.width = `${((index + 1) / slides.length) * 100}%`;
 
       if (jumpButtons[index]) {
@@ -3427,14 +3499,6 @@
       }
     }
 
-    function toggleNotes() {
-      document.body.classList.toggle("notes-open");
-    }
-
-    function toggleOverview() {
-      document.body.classList.toggle("overview");
-    }
-
     async function toggleFullscreen() {
       if (!document.fullscreenElement) {
         await document.documentElement.requestFullscreen();
@@ -3446,9 +3510,6 @@
     prevBtn.addEventListener("click", prevSlide);
     nextBtn.addEventListener("click", nextSlide);
     if (startBtn) startBtn.addEventListener("click", () => goToSlide(0));
-    if (notesBtn) notesBtn.addEventListener("click", toggleNotes);
-    if (closeNotesBtn) closeNotesBtn.addEventListener("click", () => document.body.classList.remove("notes-open"));
-    if (overviewBtn) overviewBtn.addEventListener("click", toggleOverview);
 
     if (fullscreenBtn) {
       fullscreenBtn.addEventListener("click", toggleFullscreen);
@@ -3469,18 +3530,7 @@
       } else if (event.key.toLowerCase() === "f") {
         event.preventDefault();
         toggleFullscreen();
-      } else if (event.key === "Escape") {
-        document.body.classList.remove("notes-open", "overview");
       }
-    });
-
-    slides.forEach((slide, index) => {
-      slide.addEventListener("click", () => {
-        if (document.body.classList.contains("overview")) {
-          document.body.classList.remove("overview");
-          goToSlide(index);
-        }
-      });
     });
 
     const hashMatch = window.location.hash.match(/slide-(\d+)/);
